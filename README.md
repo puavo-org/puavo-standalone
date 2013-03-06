@@ -28,5 +28,5 @@ Add organisation
 
 Create certificates for the new organisation:
 
-    puavo-gen-certs hogwarts
+    puavo-gen-organisation-certs hogwarts
 
