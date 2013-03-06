@@ -1,0 +1,32 @@
+#!/bin/sh
+
+topdomain=$1
+set -eu
+
+hostname=$(hostname)
+certdir=/etc/ssl/certs
+puavocerts=/etc/puavo-ca/servers/
+
+if [ -z "$topdomain" ]; then
+    echo "
+    usage: $(basename $0) <topdomain>
+
+    Init standalone installation for Puavo development. Setups basic
+    certificates using the given topdomain and copies them to /etc/ssl/certs
+    for slapd.
+    "
+    exit 2
+fi
+
+mkdir -p /etc/puavo/
+echo $topdomain > /etc/puavo/topdomain
+echo $hostname > /etc/puavo-ca/servers/SERVERLIST
+
+cd /etc/puavo-ca/
+make
+
+echo "Certificates generated. Copying them for slapd..."
+install -m 640 -g openldap "$puavocerts/$hostname.$topdomain.key" "$certdir/slapd-server.key"
+install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain.key" "$cenrtdir/slapd-server.crt"
+install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain-bundle.pem" "$cenrtdir/slapd-ca.crt"
+
