@@ -34,4 +34,12 @@ install -m 640 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$
 # Write fqdn
 echo "127.0.0.1    $hostname.$topdomain" >> /etc/hosts
 
+# Write LDAP client config
+cat >/etc/ldap/ldap.conf <<EOF
+TLS_CACERT $certdir/ca.$topdomain.crt
+TLS_REQCERT demand
+EOF
+
+
+
 
