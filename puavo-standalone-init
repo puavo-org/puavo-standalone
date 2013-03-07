@@ -1,22 +1,30 @@
 #!/bin/sh
 
 topdomain=$1
+
 set -eu
+
+help () {
+    echo "
+    usage: $(basename $0) <topdomain>
+
+    Init standalone installation for Puavo development.
+
+    Setups:
+        - certificates using the given topdomain and copies them to
+          /etc/ssl/certs for slapd.
+        - Set fqdn to point localhost
+        - Configures LDAP client
+    "
+    exit 2
+}
+
+[ "$topdomain" = "--help" -o "$topdomain" = "-h" ] && help
+[ -z "$topdomain" ] && help
 
 hostname=$(hostname)
 certdir=/etc/ssl/certs
 puavocerts=/etc/puavo-ca
-
-if [ -z "$topdomain" ]; then
-    echo "
-    usage: $(basename $0) <topdomain>
-
-    Init standalone installation for Puavo development. Setups basic
-    certificates using the given topdomain and copies them to /etc/ssl/certs
-    for slapd.
-    "
-    exit 2
-fi
 
 mkdir -p /etc/puavo/
 echo $topdomain > /etc/puavo/topdomain
