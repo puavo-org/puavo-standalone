@@ -5,7 +5,7 @@ set -eu
 
 hostname=$(hostname)
 certdir=/etc/ssl/certs
-puavocerts=/etc/puavo-ca/servers/
+puavocerts=/etc/puavo-ca
 
 if [ -z "$topdomain" ]; then
     echo "
@@ -26,7 +26,9 @@ cd /etc/puavo-ca/
 make
 
 echo "Certificates generated. Copying them for slapd..."
-install -m 640 -g openldap "$puavocerts/$hostname.$topdomain.key" "$certdir/slapd-server.key"
-install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain.key" "$certdir/slapd-server.crt"
-install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
+install -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
+install -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
+install -m 640 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
+install -m 640 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
+
 
