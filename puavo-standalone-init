@@ -27,6 +27,6 @@ make
 
 echo "Certificates generated. Copying them for slapd..."
 install -m 640 -g openldap "$puavocerts/$hostname.$topdomain.key" "$certdir/slapd-server.key"
-install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain.key" "$cenrtdir/slapd-server.crt"
-install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain-bundle.pem" "$cenrtdir/slapd-ca.crt"
+install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain.key" "$certdir/slapd-server.crt"
+install -m 640 -g openldap "$puavocerts/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
 
