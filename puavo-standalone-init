@@ -10,11 +10,11 @@ help () {
 
     Init standalone installation for Puavo development.
 
-    Setups:
-        - certificates using the given topdomain and copies them to
+    Setup:
+        - Create certificates using the given topdomain and copies them to
           /etc/ssl/certs for slapd.
         - Set fqdn to point localhost
-        - Configures LDAP client
+        - Configure LDAP client
     "
     exit 2
 }
@@ -34,20 +34,21 @@ cd /etc/puavo-ca/
 make
 
 echo "Certificates generated. Copying them for slapd..."
-install -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
-install -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
-install -m 640 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
-install -m 640 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
+install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
+install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
+install -v -m 640 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
+install -v -m 640 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
 
 # Write fqdn
+echo "Pointing $hostname.$topdomain to 127.0.0.1"
 echo "127.0.0.1    $hostname.$topdomain" >> /etc/hosts
 
 # Write LDAP client config
+echo "Writing LDAP client config /etc/ldap/ldap.conf"
 cat >/etc/ldap/ldap.conf <<EOF
 TLS_CACERT $certdir/ca.$topdomain.crt
 TLS_REQCERT demand
 EOF
 
-
-
+echo "Standalone init ok!"
 
