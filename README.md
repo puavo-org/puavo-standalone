@@ -24,7 +24,7 @@ Init ldap
 
 Add organisation
 
-    puavo-add-new-organisation -y -organisation hogwarts --given_name Albus --surname Dumbledore --password albus123 --username albus
+    puavo-add-new-organisation hogwarts
 
 Create certificates for the new organisation:
 
