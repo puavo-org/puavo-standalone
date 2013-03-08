@@ -16,7 +16,7 @@ This will pull in all required packages. Slapd etc.
 
 Init root certificates with topdomain:
 
-    puavo-standalone-init example.net
+    puavo-init-standalone example.net
 
 Init ldap
 

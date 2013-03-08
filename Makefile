@@ -8,7 +8,7 @@ install-dirs:
 	mkdir -p $(DESTDIR)$(sbindir)
 
 install: install-dirs
-	install -m 744 -t $(DESTDIR)$(sbindir) puavo-standalone-init
+	install -m 744 -t $(DESTDIR)$(sbindir) puavo-init-standalone
 
 clean:
 
