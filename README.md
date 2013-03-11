@@ -1,5 +1,4 @@
-
-# Puavo Standalone
+# puavo-standalone
 
 Setup Puavo development environment to a single machine.
 
