@@ -26,10 +26,14 @@ hostname=$(hostname)
 certdir=/etc/ssl/certs
 puavocerts=/etc/puavo-ca
 
-mkdir -p /etc/puavo/
-echo $topdomain > /etc/puavo/topdomain
-echo $hostname > /etc/puavo-ca/servers/SERVERLIST
+mkdir -p /etc/puavo/kerberos
 
+# Write topdomain with kerberos toprealm to /etc/puavo
+echo $topdomain > /etc/puavo/topdomain
+echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
+
+# Add this server to server list for puavo-ca Makefile and generate certificates
+echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
 make
 
