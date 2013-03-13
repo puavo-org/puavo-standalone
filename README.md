@@ -4,6 +4,9 @@ Setup Puavo development environment to a single machine.
 
 ## Setup
 
+If you're using a virtual machine, consider using [rng-tools](https://github.com/opinsys/puavo-ds/blob/master/master/README.md#using-on-virtual-machines)
+for puavo-ds.
+
 Install puavo-standalone using apt-get:
 
     echo "deb http://public.opinsys.fi/precise/current/liitu /" > /etc/apt/sources.list.d/opinsys.list
