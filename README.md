@@ -12,7 +12,7 @@ Install puavo-standalone using apt-get:
     echo "deb http://public.opinsys.fi/precise/current/liitu /" > /etc/apt/sources.list.d/opinsys.list
     wget -q http://public.opinsys.fi/opinsys-apt-key -O - | sudo apt-key add -
     apt-get update
-    apt-get install puavo-standalone
+    apt-get install --no-install-recommends puavo-standalone
 
 This will pull in all required packages. Slapd etc.
 
