@@ -39,9 +39,9 @@ make
 
 echo "Certificates generated. Copying them for slapd..."
 install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
-install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
-install -v -m 640 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
-install -v -m 640 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
+install -v -m 644 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
+install -v -m 644 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
+install -v -m 644 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
 
 # Write fqdn
 echo "Pointing $hostname.$topdomain to 127.0.0.1"
