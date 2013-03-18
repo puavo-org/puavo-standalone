@@ -32,3 +32,4 @@ Create certificates for the new organisation:
 
     puavo-gen-organisation-certs hogwarts
 
+Next step: [install puavo-users](https://github.com/opinsys/puavo-users/blob/master/doc/STANDALONE.md)
