@@ -4,8 +4,6 @@ Setup Puavo development environment to a single machine.
 
 ## Setup
 
-If you're using a virtual machine, consider using [rng-tools](https://github.com/opinsys/puavo-ds/blob/master/master/README.md#using-on-virtual-machines)
-for puavo-ds.
 
 Install puavo-standalone using apt-get:
 
@@ -27,6 +25,9 @@ Init ldap
 Add organisation
 
     puavo-add-new-organisation hogwarts
+    
+*If it fails with timeout use [rng-tools](https://github.com/opinsys/puavo-ds/blob/master/master/README.md#using-on-virtual-machines)*
+
 
 Create certificates for the new organisation:
 
