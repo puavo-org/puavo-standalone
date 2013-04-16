@@ -54,5 +54,9 @@ TLS_CACERT $certdir/ca.$topdomain.crt
 TLS_REQCERT demand
 EOF
 
+echo "Configuring puavo-ca-rails"
+puavo-ca-rails-migrate
+start puavo-ca-rails
+
 echo "Standalone init ok!"
 
