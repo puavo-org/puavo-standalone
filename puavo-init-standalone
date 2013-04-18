@@ -29,14 +29,20 @@ puavocerts=/etc/puavo-ca
 
 mkdir -p /etc/puavo/kerberos
 
-# Write topdomain with kerberos toprealm to /etc/puavo
+echo "Writing topdomain with kerberos to /etc/puavo"
 echo $topdomain > /etc/puavo/topdomain
 echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
 
-# Add this server to server list for puavo-ca Makefile and generate certificates
+echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
 make
+
+echo "Certificates generated. Copying them for slapd..."
+install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
+install -v -m 644 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
+install -v -m 644 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
+install -v -m 644 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
 
 echo "Setting up rng-tools for puavo-ds"
 # Often entropy for randomness is lacking on virtual machines which might cause
@@ -45,17 +51,10 @@ echo "Setting up rng-tools for puavo-ds"
 echo "HRNGDEVICE=/dev/urandom" > /etc/default/rng-tools
 /etc/init.d/rng-tools restart
 
-echo "Certificates generated. Copying them for slapd..."
-install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
-install -v -m 644 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
-install -v -m 644 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
-install -v -m 644 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
-
 # Write fqdn
 echo "Pointing $hostname.$topdomain to 127.0.0.1"
 echo "127.0.0.1    $hostname.$topdomain" >> /etc/hosts
 
-# Write LDAP client config
 echo "Writing LDAP client config /etc/ldap/ldap.conf"
 cat >/etc/ldap/ldap.conf <<EOF
 TLS_CACERT $certdir/ca.$topdomain.crt
