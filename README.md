@@ -25,9 +25,6 @@ Init ldap
 Add organisation
 
     puavo-add-new-organisation hogwarts
-    
-*If it fails with timeout use [rng-tools](https://github.com/opinsys/puavo-ds/blob/master/master/README.md#using-on-virtual-machines)*
-
 
 Create certificates for the new organisation:
 
