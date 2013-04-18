@@ -15,6 +15,7 @@ help () {
           /etc/ssl/certs for slapd.
         - Set fqdn to point localhost
         - Configure LDAP client
+        - Configure rng-tools
     "
     exit 2
 }
@@ -36,6 +37,13 @@ echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
 make
+
+echo "Setting up rng-tools for puavo-ds"
+# Often entropy for randomness is lacking on virtual machines which might cause
+# puavo-add-new-organisation to timeout. This can be worked around with
+# rng-tools
+echo "HRNGDEVICE=/dev/urandom" > /etc/default/rng-tools
+/etc/init.d/rng-tools restart
 
 echo "Certificates generated. Copying them for slapd..."
 install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
