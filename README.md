@@ -21,7 +21,7 @@ Init root certificates with topdomain:
 
 Add organisation
 
-    puavo-add-new-organisation hogwarts
+    puavo-add-new-organisation hogwarts --username albus --password albus --given-name Albus --surname Dumbledore
 
 Create certificates for the new organisation:
 
