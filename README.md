@@ -19,10 +19,6 @@ Init root certificates with topdomain:
 
     puavo-init-standalone example.net
 
-Init ldap
-
-    puavo-init-ldap
-
 Add organisation
 
     puavo-add-new-organisation hogwarts

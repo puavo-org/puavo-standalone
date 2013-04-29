@@ -61,6 +61,9 @@ TLS_CACERT $certdir/ca.$topdomain.crt
 TLS_REQCERT demand
 EOF
 
+echo "Initializing slapd"
+puavo-init-ldap
+
 echo "Configuring puavo-ca-rails"
 puavo-ca-rails-migrate
 start puavo-ca-rails
