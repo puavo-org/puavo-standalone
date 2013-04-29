@@ -7,7 +7,8 @@ Setup Puavo development environment to a single machine.
 
 Install puavo-standalone using apt-get:
 
-    echo "deb http://public.opinsys.fi/precise/current/liitu /" > /etc/apt/sources.list.d/opinsys.list
+    echo "deb http://public.opinsys.fi precise main restricted" > /etc/apt/sources.list.d/opinsys.list
+    echo "deb-src http://public.opinsys.fi precise main restricted" >> /etc/apt/sources.list.d/opinsys.list
     wget -q http://public.opinsys.fi/key -O - | sudo apt-key add -
     apt-get update
     apt-get install --no-install-recommends puavo-standalone
