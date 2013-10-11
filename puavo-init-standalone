@@ -36,7 +36,7 @@ echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
 echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
-make
+make ROOT_PASS=foobar SERVER_PASS=barfoo
 
 echo "Certificates generated. Copying them for slapd..."
 install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
