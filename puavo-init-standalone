@@ -117,6 +117,7 @@ fi
 
 echo "Configuring puavo-ca-rails"
 puavo-ca-rails-migrate
+stop puavo-ca-rails || true
 start puavo-ca-rails
 
 echo "Standalone init ok!"
