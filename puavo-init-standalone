@@ -1,16 +1,15 @@
 #!/bin/sh
 
-topdomain=$1
-
-set -eu
 
 help () {
     echo "
-    usage: $(basename $0) <topdomain>
+    usage: $(basename $0) [--unsafe-passwords] <topdomain>
 
     Init standalone installation for Puavo development.
 
-    Setup:
+    --unsafe-passwords Set unsafe passwords for development.
+
+    This script does following:
         - Create certificates using the given topdomain and copies them to
           /etc/ssl/certs for slapd.
         - Set fqdn to point localhost
@@ -20,8 +19,19 @@ help () {
     exit 2
 }
 
-[ "$topdomain" = "--help" -o "$topdomain" = "-h" ] && help
-[ "$topdomain" = "" ] && help && exit 1
+
+set -eu
+
+[ "$1" = "--help" -o "$1" = "-h" ] && help
+[ "$1" = "" ] && help && exit 1
+
+unsafe_passwords=0
+if [ "$1" = "--unsafe-passwords" ]; then
+    unsafe_passwords=1
+    shift
+fi
+
+topdomain="$1"
 
 hostname=$(hostname)
 certdir=/etc/ssl/certs
@@ -36,7 +46,11 @@ echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
 echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
-make ROOT_PASS=foobar SERVER_PASS=barfoo
+if [ "$unsafe_passwords" = "1"]; then
+    make ROOT_PASS=password SERVER_PASS=password
+else
+    make
+fi
 
 echo "Certificates generated. Copying them for slapd..."
 install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
