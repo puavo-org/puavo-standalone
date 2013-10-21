@@ -16,23 +16,23 @@ help () {
         - Configure LDAP client
         - Configure rng-tools
     "
-    exit 2
 }
 
 
 set -eu
 
-[ "$1" = "--help" -o "$1" = "-h" ] && help
+[ "$1" = "--help" -o "$1" = "-h" ] && help && exit
 [ "$1" = "" ] && help && exit 1
 
-unsafe_passwords=0
+use_unsafe_passwords=false
 if [ "$1" = "--unsafe-passwords" ]; then
-    unsafe_passwords=1
+    use_unsafe_passwords=true
     shift
 fi
 
 topdomain="$1"
 
+unsafe_password="password"
 hostname=$(hostname)
 certdir=/etc/ssl/certs
 puavocerts=/etc/puavo-ca
@@ -43,11 +43,44 @@ echo "Writing topdomain with kerberos to /etc/puavo"
 echo $topdomain > /etc/puavo/topdomain
 echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
 
+
+if $use_unsafe_passwords; then
+    mkdir -p /etc/puavo/ldap
+    echo "uid=admin,o=puavo" > /etc/puavo/ldap/dn
+    echo "$unsafe_password" >  /etc/puavo/ldap/password
+
+    mkdir -p /etc/puavo/ds/puavo
+    echo "uid=puavo,o=puavo" > /etc/puavo/ds/puavo/dn
+    echo "$unsafe_password" > /etc/puavo/ds/puavo/password
+
+    mkdir -p /etc/puavo/ds/slave
+    echo "uid=slave,o=puavo" > /etc/puavo/ds/slave/dn
+    echo "$unsafe_password" > /etc/puavo/ds/slave/password
+
+    mkdir -p /etc/puavo/ds/kadmin
+    echo "uid=kadmin,o=puavo" > /etc/puavo/ds/kadmin/dn
+    echo "$unsafe_password" > /etc/puavo/ds/kadmin/password
+
+    mkdir -p /etc/puavo/ds/monitor
+    echo "uid=monitor,o=puavo" > /etc/puavo/ds/monitor/dn
+    echo "$unsafe_password" > /etc/puavo/ds/monitor/password
+
+    mkdir -p /etc/puavo/ds/kdc
+    echo "uid=kdc,o=puavo" > /etc/puavo/ds/kdc/dn
+    echo "$unsafe_password" > /etc/puavo/ds/kdc/password
+
+    mkdir -p /etc/puavo/ds/puppet
+    echo "uid=puppet,o=puavo" > /etc/puavo/ds/puppet/dn
+    echo "$unsafe_password" > /etc/puavo/ds/puppet/password
+fi
+
+
 echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
-if [ "$unsafe_passwords" = "1"]; then
-    make ROOT_PASS=password SERVER_PASS=password
+
+if $use_unsafe_passwords; then
+    make ROOT_PASS=$unsafe_password SERVER_PASS=$unsafe_password
 else
     make
 fi
@@ -76,7 +109,11 @@ TLS_REQCERT demand
 EOF
 
 echo "Initializing slapd"
-puavo-init-ldap
+if $use_unsafe_passwords; then
+    puavo-init-ldap --AUTO-YES
+else
+    puavo-init-ldap
+fi
 
 echo "Configuring puavo-ca-rails"
 puavo-ca-rails-migrate
