@@ -21,7 +21,7 @@ help () {
 }
 
 [ "$topdomain" = "--help" -o "$topdomain" = "-h" ] && help
-[ -z "$topdomain" ] && help
+[ "$topdomain" = "" ] && help && exit 1
 
 hostname=$(hostname)
 certdir=/etc/ssl/certs
