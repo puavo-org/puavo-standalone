@@ -99,8 +99,10 @@ echo "HRNGDEVICE=/dev/urandom" > /etc/default/rng-tools
 /etc/init.d/rng-tools restart
 
 # Write fqdn
-echo "Pointing $hostname.$topdomain to 127.0.0.1"
-echo "127.0.0.1    $hostname.$topdomain" >> /etc/hosts
+cat > /etc/hosts <<EOF
+127.0.0.1 $hostname.$topdomain $hostname localhost
+EOF
+
 
 echo "Writing LDAP client config /etc/ldap/ldap.conf"
 cat >/etc/ldap/ldap.conf <<EOF
