@@ -112,9 +112,9 @@ EOF
 
 echo "Initializing slapd"
 if $use_unsafe_passwords; then
-    puavo-init-ldap --AUTO-YES
+    puavo-init-ldap --AUTO-YES --save-admin-password
 else
-    puavo-init-ldap
+    puavo-init-ldap --save-admin-password
 fi
 
 echo "Configuring puavo-ca-rails"
