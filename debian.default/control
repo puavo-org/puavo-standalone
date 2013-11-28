@@ -1,0 +1,14 @@
+Source: puavo-standalone
+Section: admin
+Priority: extra
+Maintainer: Esa-Matti Suuronen <esa-matti.suuronen@opinsys.fi>
+Build-Depends: debhelper (>= 8)
+Standards-Version: 3.9.3
+Homepage: https://github.com/opinsys/puavo-standalone
+
+Package: puavo-standalone
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, puavo-ds-master, puavo-client, puavo-ca-setup, puavo-ca-rails, rng-tools
+Description: Setup Puavo development environment to a single machine
+ Puavo development!
+
