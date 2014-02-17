@@ -21,16 +21,10 @@ Install puavo-standalone using apt-get:
 
 This will pull in all required packages. Slapd etc.
 
-Init root certificates with topdomain:
+Init root certificates for topdomain:
 
-    puavo-init-standalone example.net
+    puavo-init-standalone --unsafe-passwords example.net
 
-Add organisation
-
-    puavo-add-new-organisation hogwarts --username albus --password albus --given-name Albus --surname Dumbledore
-
-Create certificates for the new organisation:
-
-    puavo-gen-organisation-certs hogwarts
+For production setup you will want to drop the `-unsafe-passwords` switch.
 
 Then might want to install [Puavo web interface](https://github.com/opinsys/puavo-users/blob/master/doc/STANDALONE.md)
