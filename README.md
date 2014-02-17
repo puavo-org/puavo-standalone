@@ -25,6 +25,6 @@ Init root certificates for topdomain:
 
     puavo-init-standalone --unsafe-passwords example.net
 
-For production setup you will want to drop the `-unsafe-passwords` switch.
+For production setup you will want to drop the `--unsafe-passwords` switch.
 
 Then might want to install [Puavo web interface](https://github.com/opinsys/puavo-users/blob/master/doc/STANDALONE.md)
