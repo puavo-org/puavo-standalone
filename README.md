@@ -1,15 +1,21 @@
 # puavo-standalone
 
-Setup Puavo development environment to a single machine.
+Setup Puavo environment (LDAP&Certificates) to a single machine.
+
+Please use a fresh dedicated Ubuntu Precise 12.04 installation.
 
 ## Setup
+
+Setup our apt sources
+
+    cat >/etc/apt/sources.list.d/opinsys.list<<EOF
+    deb http://archive.opinsys.fi/git-master precise main
+    deb http://archive.opinsys.fi/slapd-old precise main
+    EOF
 
 
 Install puavo-standalone using apt-get:
 
-    echo "deb http://archive.opinsys.fi precise main restricted" > /etc/apt/sources.list.d/opinsys.list
-    echo "deb-src http://archive.opinsys.fi precise main restricted" >> /etc/apt/sources.list.d/opinsys.list
-    wget -q http://archive.opinsys.fi/key -O - | sudo apt-key add -
     apt-get update
     apt-get install --no-install-recommends puavo-standalone
 
@@ -27,4 +33,4 @@ Create certificates for the new organisation:
 
     puavo-gen-organisation-certs hogwarts
 
-Next step: [install puavo-users](https://github.com/opinsys/puavo-users/blob/master/doc/STANDALONE.md)
+Then might want to install [Puavo web interface](https://github.com/opinsys/puavo-users/blob/master/doc/STANDALONE.md)
