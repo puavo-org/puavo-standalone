@@ -19,7 +19,7 @@ Setup our apt sources
 Install puavo-standalone using apt-get:
 
     apt-get update
-    apt-get install --no-install-recommends puavo-standalone
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends puavo-standalone
 
 This will pull in all required packages. Slapd etc.
 
