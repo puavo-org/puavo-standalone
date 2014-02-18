@@ -1,10 +1,12 @@
 # puavo-standalone
 
-Setup Puavo environment (LDAP&Certificates) to a single machine.
+Setup a standalone Puavo environment (LDAP&Certificates) to a single machine.
 
 Please use a fresh dedicated Ubuntu Precise 12.04 installation.
 
 ## Setup
+
+As root.
 
 Setup our apt sources
 
