@@ -72,6 +72,10 @@ if $use_unsafe_passwords; then
     mkdir -p /etc/puavo/ds/puppet
     echo "uid=puppet,o=puavo" > /etc/puavo/ds/puppet/dn
     echo "$unsafe_password" > /etc/puavo/ds/puppet/password
+    
+    mkdir -p /etc/puavo/ds/puavo-ticket
+    echo "uid=puavo-ticket,o=puavo" > /etc/puavo/ds/puavo-ticket/dn
+    echo "$unsafe_password" > /etc/puavo/ds/puavo-ticket/password
 fi
 
 
