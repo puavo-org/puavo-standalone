@@ -76,6 +76,10 @@ if $use_unsafe_passwords; then
     mkdir -p /etc/puavo/ds/puavo-ticket
     echo "uid=puavo-ticket,o=puavo" > /etc/puavo/ds/puavo-ticket/dn
     echo "$unsafe_password" > /etc/puavo/ds/puavo-ticket/password
+
+    mkdir -p /etc/puavo/ds/pw-mgmt
+    echo "uid=pw-mgmt,o=puavo" > /etc/puavo/ds/pw-mgmt/dn
+    echo "$unsafe_password" > /etc/puavo/ds/pw-mgmt/password
 fi
 
 
