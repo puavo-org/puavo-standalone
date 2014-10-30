@@ -11,6 +11,7 @@
 - name: Install development tools
   action: apt pkg={{item}} state=present force=yes
   with_items:
+    - puavo-devscripts
     - build-essential
     - tmux
     - git
