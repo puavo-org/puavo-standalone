@@ -5,7 +5,8 @@ set -eu
 apt-get install -y python-software-properties
 apt-add-repository ppa:rquillo/ansible --yes
 apt-get update
-apt-get install -y ansible git
+# OpenPGP data is no where to be found. Workaround with --force-yes for now
+apt-get install -y --force-yes ansible git
 
 
 if [ ! -f standalone.yml ]; then
