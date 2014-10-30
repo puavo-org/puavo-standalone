@@ -2,11 +2,11 @@
 
 set -eu
 
-sudo apt-get update
-sudo apt-get install -y python-software-properties
-sudo apt-add-repository ppa:rquillo/ansible --yes
-sudo apt-get update
-sudo apt-get install -y ansible git
+apt-get update
+apt-get install -y python-software-properties
+apt-add-repository ppa:rquillo/ansible --yes
+apt-get update
+apt-get install -y ansible git
 
 
 if [ ! -f standalone.yml ]; then
@@ -19,4 +19,4 @@ if [ ! -f standalone.yml ]; then
     fi
 fi
 
-sudo ansible-playbook -i local.inventory standalone.yml
+ansible-playbook -i local.inventory standalone.yml
