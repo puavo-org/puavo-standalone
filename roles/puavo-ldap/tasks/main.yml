@@ -1,12 +1,13 @@
 - name: Add archive.opinsys.fi/slapd-old for slapd
   apt_repository: repo='deb http://{{ archive_server }}/slapd-old precise main' state=present
 
-- name: Install latest puavo-standalone puavo-web and puavo-rest
+- name: Install latest puavo-standalone, puavo-web, puavo-web-worker and puavo-rest
   action: apt pkg={{item}} state=latest force=yes
   with_items:
     - puavo-standalone
     - puavo-web
     - puavo-rest
+    - puavo-web-worker
 
 - name: Install redis for puavo-web & puavo-rest
   apt: pkg=redis-server state=present
