@@ -1,0 +1,99 @@
+- name: Install ansible dependencies
+  command: apt-get install -y python-apt python-psycopg2
+
+- name: Add archive.opinsys.fi/git-master
+  apt_repository: repo='deb http://{{ archive_server }}/git-master precise main' state=present
+
+- name: Add archive.opinsys.fi/slapd-old for slapd
+  apt_repository: repo='deb http://{{ archive_server }}/slapd-old precise main' state=present
+
+- name: Add key for archive.opinsys.fi
+  apt_key: url=http://{{ archive_server }}/key state=present
+
+- name: Install devtools
+  action: apt pkg={{item}} state=present force=yes
+  with_items:
+    - build-essential
+    - tmux
+    - git
+    - wget
+    - curl
+    - bash-completion
+    - inotify-tools
+    - vim-nox
+    - git
+
+- name: Install latest puavo-standalone puavo-web and puavo-rest
+  action: apt pkg={{item}} state=present force=yes
+  with_items:
+    - puavo-devscripts
+    - puavo-standalone
+    - puavo-web
+    - puavo-rest
+
+- name: Install redis for puavo-web & puavo-rest
+  apt: pkg=redis-server state=present
+
+- name: Initialize LDAP
+  command: puavo-init-standalone --unsafe-passwords opinsys.net creates=/etc/puavo
+
+- name: Create organisations for test and development
+  command: puavo-add-new-organisation --yes {{ item.organisation }} --username {{ item.username }} --password {{ item.password }} --given-name {{ item.givenname }} --surname {{ item.surname }}
+    creates={{ item.creates }}
+  notify: Seed LDAP database
+  with_items:
+    - { organisation: "hogwarts",
+        username: "albus",
+        password: "albus",
+        givenname: "Albus",
+        surname: "Dumbledore",
+        creates: "/var/lib/ldap/dc=edu,dc=hogwarts,dc=fi" }
+    - { organisation: "example",
+        username: "cucumber",
+        password: "cucumber",
+        givenname: "cucumber",
+        surname: "cucumber",
+        creates: "/var/lib/ldap/dc=edu,dc=example,dc=fi" }
+    - { organisation: "anotherorg",
+        username: "admin",
+        password: "admin",
+        givenname: "Admin",
+        surname: "Administrator",
+        creates: "/var/lib/ldap/dc=edu,dc=anotherorg,dc=fi" }
+    - { organisation: "heroes",
+        username: "admin",
+        password: "admin",
+        givenname: "Charles",
+        surname: "Xavier",
+        creates: "/var/lib/ldap/dc=edu,dc=heroes,dc=fi" }
+
+- name: Configuration for puavo-rest
+  copy: src=puavo-rest.yml dest=/etc/puavo-rest.yml
+  notify: Restart puavo-rest
+
+- file: dest=/etc/puavo-web state=directory
+
+- name: Add ldap configuration for puavo-web
+  copy: src=puavo-web/ldap.yml dest=/etc/puavo-web/ldap.yml
+  notify: Restart puavo-web
+
+- name: Add organisations.yml for puavo-web
+  copy: src=puavo-web/organisations.yml dest=/etc/puavo-web/organisations.yml
+  notify: Restart puavo-web
+
+- name: Add puavo_devices.yml for puavo-web
+  copy: src=puavo-web/puavo_devices.yml dest=/etc/puavo-web/puavo_devices.yml
+  notify: Restart puavo-web
+
+- name: Add puavo_external_files.yml for puavo-web
+  copy: src=puavo-web/puavo_external_files.yml dest=/etc/puavo-web/puavo_external_files.yml
+  notify: Restart puavo-web
+
+- name: Add redis.yml for puavo-web
+  copy: src=puavo-web/redis.yml dest=/etc/puavo-web/redis.yml
+  notify: Restart puavo-web
+
+- name: Add unicorn.rb for puavo-web
+  copy: src=puavo-web/unicorn.rb dest=/etc/puavo-web/unicorn.rb
+  notify: Restart puavo-web
+

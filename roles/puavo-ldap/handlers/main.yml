@@ -1,0 +1,9 @@
+- name: Seed LDAP database
+  shell: bundle exec rails runner db/seeds.rb
+    chdir=/var/app/puavo-web/
+
+- name: Restart puavo-rest
+  service: name=puavo-rest state=restarted
+
+- name: Restart puavo-web
+  service: name=puavo-web state=restarted

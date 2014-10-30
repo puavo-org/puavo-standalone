@@ -1,0 +1,9 @@
+description "selenium"
+
+start on runlevel [23]
+stop on shutdown
+
+env DISPLAY=:99
+setuid selenium
+
+exec java -jar /usr/local/lib/selenium-server-standalone.jar

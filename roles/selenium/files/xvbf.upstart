@@ -1,0 +1,9 @@
+description "xvbf"
+
+start on runlevel [23]
+stop on shutdown
+
+env DISPLAY=:99
+setuid selenium
+
+exec Xvfb :99 -screen 0 1920x1080x24

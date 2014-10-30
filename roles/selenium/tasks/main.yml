@@ -1,0 +1,26 @@
+- name: Install Java runtime for Selenium
+  apt: pkg=default-jre state=present
+
+- name: Install xvfb for headless testing
+  apt: pkg=xvfb state=present
+
+- name: Download Selenium server
+  get_url: url=http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar dest=/usr/local/lib/selenium-server-standalone.jar
+  notify: Restart Selenium
+
+- name: Add selenium user
+  user: name=selenium system=yes uid=2345
+
+- name: Install browsers
+  action: apt pkg={{item}} state=present
+  with_items:
+    - firefox
+    - chromium-browser
+
+- name: Selenium upstart script
+  copy: src=selenium.upstart dest=/etc/init/selenium.conf
+  notify: Restart Selenium
+
+- name: Xvbf upstart script
+  copy: src=xvbf.upstart dest=/etc/init/xvbf.conf
+  notify: Restart Xvbf

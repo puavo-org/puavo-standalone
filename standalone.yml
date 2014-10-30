@@ -1,0 +1,17 @@
+- hosts: localhost
+  sudo: yes
+  vars:
+    puavo_ca_port: 3000
+    puavo_web_port: 3001
+    puavo_ticket_port: 3002
+    puavo_rest_port: 9292
+    archive_server: archive.opinsys.fi
+    postgresql_locale: "en_US.UTF-8"
+    postgresql_env:
+      LC_ALL: "{{ postgresql_locale }}"
+      LC_LCTYPE: "{{ postgresql_locale }}"
+
+  roles:
+    - selenium
+    - puavo-ldap
+    - puavo-ticket

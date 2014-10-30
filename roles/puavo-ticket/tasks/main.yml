@@ -1,0 +1,76 @@
+- name: Add apt.postgresql.org
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' state=present
+
+- name: Install node.js
+  apt: pkg=nodejs-bundle state=present force=yes
+
+- name: Install build tools
+  apt: pkg=build-essential  state=present
+
+- name: Add key for apt.postgresql.org
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
+- name: Install redis for puavo-ticket
+  apt: pkg=redis-server state=present
+
+# XXX: Why the old version is installed?
+- name: Remove old postgresql versions
+  shell: apt-get purge -y --force-yes postgresql-9.1 postgresql-client-9.1
+  ## XXX: Why this fails?
+  # action: apt pkg={{item}} state=absent purge=yes force=yes
+  # with_items:
+  #   - postgresql-9.1
+  #   - postgresql-client-9.1
+
+- name: install postgresql
+  apt: pkg=postgresql-9.3 state=present force=yes update_cache=yes
+  environment: postgresql_env
+
+- name: Create databases
+  sudo_user: postgres
+  environment: postgresql_env
+  action: postgresql_db name={{item}}
+                        encoding=UTF-8
+                        lc_collate={{ postgresql_locale }}
+                        lc_ctype={{ postgresql_locale }}
+                        template=template0
+  with_items:
+    - puavo-ticket
+    - puavo-ticket-test
+
+- name: Add Postgresql user
+  sudo_user: postgres
+  postgresql_user: name=puavo-ticket password=password role_attr_flags=LOGIN
+
+- name: Grant permissions to postgres user for puavo-ticket databases
+  sudo_user: postgres
+  action: postgresql_privs db={{item}}
+                           privs=ALL
+                           type=database
+                           roles=puavo-ticket
+  with_items:
+    - puavo-ticket
+    - puavo-ticket-test
+
+- name: Get hostname
+  command: hostname -f
+  register: hostname_command
+
+- name: Configuration for puavo-ticket
+  template: src=_config.json.tmpl dest={{ code_dest }}/puavo-ticket/_config.json
+    owner={{ dev_user }}
+
+- name: Install postgresql headers for the node.js postgresql module
+  apt: pkg=libpq-dev state=present
+
+- name: Install nodejs modules, generate documentation and install git hooks
+  command: make
+    chdir={{ code_dest }}/puavo-ticket
+    creates={{ code_dest }}/puavo-ticket/node_modules
+  sudo_user: "{{ dev_user }}"
+
+- name: Runs puavo-ticket migrations
+  command: make migrate
+    chdir={{ code_dest }}/puavo-ticket
+  sudo_user: "{{ dev_user }}"
+
