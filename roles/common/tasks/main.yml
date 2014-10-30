@@ -1,7 +1,4 @@
 
-- name: Install ansible dependencies
-  command: apt-get install -y python-apt python-psycopg2
-
 - name: Add archive.opinsys.fi/git-master
   apt_repository: repo='deb http://{{ archive_server }}/git-master precise main' state=present update_cache=yes
 
