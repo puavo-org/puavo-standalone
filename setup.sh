@@ -9,8 +9,13 @@ sudo apt-get install -y ansible git
 
 
 if [ ! -f standalone.yml ]; then
-    git clone https://github.com/opinsys/puavo-standalone /tmp/puavo-standalone
-    cd /tmp/puavo-standalone
+    if [ -d /tmp/puavo-standalone ]; then
+        cd /tmp/puavo-standalone
+        git pull
+    else
+        git clone https://github.com/opinsys/puavo-standalone /tmp/puavo-standalone
+        cd /tmp/puavo-standalone
+    fi
 fi
 
-sudo ansible-playbook standalone.yml
+sudo ansible-playbook -i local.inventory standalone.yml

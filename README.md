@@ -1,32 +1,40 @@
 # puavo-standalone
 
-Setup a standalone Puavo Environment (LDAP&Certificates) to a single machine.
+Set of [Ansible][] rules for a standalone Puavo cloud environment.
 
-Please use a fresh dedicated Ubuntu Precise 12.04 installation.
+These rules will configure following services
 
-## Setup
+  - OpenLDAP with Kerberos
+  - PostgreSQL
+  - Redis
+  - Selenium server with Xvbf (:99) on port 4444
 
-As root.
+and following puavo services
 
-Setup our apt sources
+  - [puavo-web](https://github.com/opinsys/puavo-users) on port 8081
+  - [puavo-ca](https://github.com/opinsys/puavo-ca)
+  - [puavo-rest](https://github.com/opinsys/puavo-users/tree/master/rest) on port 9292
+  - [puavo-ticket](https://github.com/opinsys/puavo-ticket) on port 3002
 
-    cat >/etc/apt/sources.list.d/opinsys.list<<EOF
-    deb http://archive.opinsys.fi/git-master precise main
-    deb http://archive.opinsys.fi/slapd-old precise main
-    EOF
+These services must be accessesed using the fqdn of the server.
+
+# Applying the rules
+
+The rules work only on top of a clean Ubuntu 12.04 LTS (Precise Pangolin)
+installation.
+
+For localhost
+
+    sudo ansible-playbook -i local.inventory standalone.yml
+
+For remote machines you must create your own inventory file.
+
+You are lazy you can just do this
+
+    wget -qO - https://github.com/opinsys/puavo-standalone/raw/master/setup.sh | sudo sh
+
+It will install Ansible, clone this repository and apply the rules for localhost.
 
 
-Install puavo-standalone using apt-get:
+[Ansible]: http://ansible.com
 
-    apt-get update
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends puavo-standalone
-
-This will pull in all required packages. Slapd etc.
-
-Init root certificates for topdomain:
-
-    puavo-init-standalone --unsafe-passwords example.net
-
-`--unsafe-passwords` will set `password` as the password for everything. For production setup you will want to it.
-
-Then might want to install [Puavo web interface](https://github.com/opinsys/puavo-users/blob/master/doc/STANDALONE.md)

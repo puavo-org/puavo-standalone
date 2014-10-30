@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: puavostandalone
   sudo: yes
   vars:
     puavo_ca_port: 3000
