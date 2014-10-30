@@ -9,6 +9,8 @@
   apt: pkg=puavo-ticket state=latest
   notify: Run puavo-ticket migrations
 
+- file: dest=/etc/puavo-ticket state=directory
+
 - name: Configuration for puavo-ticket
   template: src=_config.json.tmpl dest=/etc/puavo-ticket/config.json
   notify: Restart puavo-ticket
