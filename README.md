@@ -5,7 +5,7 @@ Set of [Ansible][] rules for a standalone Puavo cloud environment.
 These rules will configure following services
 
   - OpenLDAP with Kerberos
-  - PostgreSQL
+  - PostgreSQL 9.3
   - Redis
   - Selenium server with Xvbf (:99) on port 4444
 
