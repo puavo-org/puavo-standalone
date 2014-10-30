@@ -2,7 +2,6 @@
 
 set -eu
 
-apt-get update
 apt-get install -y python-software-properties
 apt-add-repository ppa:rquillo/ansible --yes
 apt-get update
