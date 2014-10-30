@@ -1,27 +1,5 @@
-- name: Install ansible dependencies
-  command: apt-get install -y python-apt python-psycopg2
-
-- name: Add archive.opinsys.fi/git-master
-  apt_repository: repo='deb http://{{ archive_server }}/git-master precise main' state=present
-
 - name: Add archive.opinsys.fi/slapd-old for slapd
   apt_repository: repo='deb http://{{ archive_server }}/slapd-old precise main' state=present
-
-- name: Add key for archive.opinsys.fi
-  apt_key: url=http://{{ archive_server }}/key state=present
-
-- name: Install devtools
-  action: apt pkg={{item}} state=present force=yes
-  with_items:
-    - build-essential
-    - tmux
-    - git
-    - wget
-    - curl
-    - bash-completion
-    - inotify-tools
-    - vim-nox
-    - git
 
 - name: Install latest puavo-standalone puavo-web and puavo-rest
   action: apt pkg={{item}} state=present force=yes
