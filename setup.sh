@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -eux
 
 apt-get install -y python-software-properties
 apt-add-repository ppa:rquillo/ansible --yes
