@@ -1,0 +1,6 @@
+- name: Install puavo-ca-setup
+  apt: pgk=puavo-ca-setup state=latest
+
+- name: Install puavo-ca-rails
+  apt: pgk=puavo-ca-rails state=latest
+  notify: Run puavo-ca migrations
