@@ -1,7 +1,7 @@
 example:
   name: Example Organisation
   host: www.example.com
-  ldap_host: <%= @hostname %>
+  ldap_host: {{ hostname_command["stdout"] }}
   ldap_base: dc=edu,dc=example,dc=fi
   owner: cucumber
   owner_pw: cucumber
@@ -10,7 +10,7 @@ example:
 anotherorg:
   name: Another Organisation
   host: anotherorg.example.net
-  ldap_host: <%= @hostname %>
+  ldap_host: {{ hostname_command["stdout"] }}
   ldap_base: dc=edu,dc=anotherorg,dc=fi
   owner: admin
   owner_pw: admin
@@ -19,7 +19,7 @@ anotherorg:
 heroes:
   name: Super Heroes Organisation
   host: heroes.example.net
-  ldap_host: <%= @hostname %>
+  ldap_host: {{ hostname_command["stdout"] }}
   ldap_base: dc=edu,dc=heroes,dc=fi
   owner: admin
   owner_pw: admin
@@ -39,6 +39,6 @@ example2:
 hogwarts:
   name: Hogwarts
   host: *
-  ldap_host: <%= @hostname %>
+  ldap_host: {{ hostname_command["stdout"] }}
   ldap_base: dc=edu,dc=hogwarts,dc=fi
   locale: en

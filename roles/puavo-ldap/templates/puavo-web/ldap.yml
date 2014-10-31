@@ -1,0 +1,27 @@
+development:
+  host: {{ hostname_command["stdout"] }}
+  bind_dn: uid=puavo,o=puavo
+  password: password
+  base: o=puavo
+  method: tls
+
+test:
+  host: {{ hostname_command["stdout"] }}
+  bind_dn: uid=admin,o=puavo
+  password: password
+  base: o=puavo
+  method: tls
+
+cucumber:
+  host: {{ hostname_command["stdout"] }}
+  bind_dn: uid=admin,o=puavo
+  password: password
+  base: o=puavo
+  method: tls
+
+production:
+  host: {{ hostname_command["stdout"] }}
+  bind_dn: uid=admin,o=puavo
+  password: password
+  base: o=puavo
+  method: tls
