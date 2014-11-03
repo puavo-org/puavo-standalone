@@ -8,8 +8,14 @@ apt-get update
 # OpenPGP data is no where to be found. Workaround with --force-yes for now
 apt-get install -y --force-yes ansible git
 
+# If running in Vagrant use the playbook from the mount
+if [ -d /vagrant ]; then
+    cd /vagrant
+fi
 
+# No we don't have the playbook fetch it
 if [ ! -f standalone.yml ]; then
+    # If already fetched update id
     if [ -d /tmp/puavo-standalone ]; then
         cd /tmp/puavo-standalone
         git pull
