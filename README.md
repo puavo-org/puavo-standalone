@@ -29,9 +29,9 @@ For localhost
 
 For remote machines you must create your own inventory file.
 
-You are lazy you can just do this
+If you are lazy you can just do this like [other cool kids](http://curlpipesh.tumblr.com/)
 
-    wget -qO - https://github.com/opinsys/puavo-standalone/raw/master/setup.sh | sudo sh
+    wget -qO- https://github.com/opinsys/puavo-standalone/raw/master/setup.sh | sudo sh
 
 It will install Ansible, clone this repository and apply the rules for localhost.
 
