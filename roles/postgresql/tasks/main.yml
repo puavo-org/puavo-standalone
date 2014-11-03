@@ -1,3 +1,8 @@
+- name: Ensure required locale
+  locale_gen: name={{ postgresql_locale }} state=present
+
+- name: Set the postgresql locale as the default system locale
+  copy: dest=/etc/default/locale content=LANG={{ postgresql_locale }}
 
 - name: Add apt.postgresql.org
   apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' state=present
