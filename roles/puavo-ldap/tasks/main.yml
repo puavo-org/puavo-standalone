@@ -63,8 +63,8 @@
   template: src=puavo-web/organisations.yml dest=/etc/puavo-web/organisations.yml
   notify: Restart puavo-web
 
-- name: Add puavo_devices.yml for puavo-web
-  copy: src=puavo-web/puavo_devices.yml dest=/etc/puavo-web/puavo_devices.yml
+- name: Add puavo_web.yml for puavo-web
+  copy: src=puavo-web/puavo_web.yml dest=/etc/puavo-web/puavo_web.yml
   notify: Restart puavo-web
 
 - name: Add puavo_external_files.yml for puavo-web
