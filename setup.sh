@@ -15,7 +15,7 @@ fi
 
 # No we don't have the playbook fetch it
 if [ ! -f standalone.yml ]; then
-    # If already fetched update id
+    # If already fetched update it
     if [ -d /tmp/puavo-standalone ]; then
         cd /tmp/puavo-standalone
         git pull
