@@ -15,16 +15,16 @@ if [ -d /vagrant ]; then
     cd /vagrant
 fi
 
-# No we don't have the playbook fetch it
+# If we don't have the playbook
 if [ ! -f standalone.yml ]; then
-    if [ -d /tmp/puavo-standalone ]; then
-        # If already fetched update it
-        cd /tmp/puavo-standalone
-        git pull
-    else
-        # Otherwise get the latest rules
+    # fetch it to a temp location using git
+    if [ ! -d /tmp/puavo-standalone ]; then
         git clone https://github.com/opinsys/puavo-standalone /tmp/puavo-standalone
         cd /tmp/puavo-standalone
+    else
+        # if already fetched we update it
+        cd /tmp/puavo-standalone
+        git pull
     fi
 fi
 
