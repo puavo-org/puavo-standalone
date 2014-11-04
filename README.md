@@ -41,8 +41,9 @@ If you use [Vagrant][] just type
 
     vagrant up
 
-in the repository root to get vagrant machine with puavo-standalone
+in the repository root to get a vagrant machine with puavo-standalone. You must have [VirtualBox][] installed for this to work.
 
 [Ansible]: http://ansible.com
 [Vagrant]: https://www.vagrantup.com/
+[VirtualBox]: https://www.virtualbox.org/
 
