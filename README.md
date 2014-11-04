@@ -35,6 +35,14 @@ If you are lazy you can just do this like [other cool kids](http://curlpipesh.tu
 
 It will install Ansible, clone this repository and apply the rules for localhost.
 
+# Vagrant
+
+If you use [Vagrant][] just type
+
+    vagrant up
+
+in the repository root to get vagrant machine with puavo-standalone
 
 [Ansible]: http://ansible.com
+[Vagrant]: https://www.vagrantup.com/
 
