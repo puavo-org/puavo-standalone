@@ -14,6 +14,7 @@ allow_change_device_types:
 password_management:
   host: 127.0.0.1
   port: 9393
+email_confirm_secret: secret
 device_types:
   thinclient:
     label:
