@@ -23,6 +23,10 @@ These services must be accessesed using the fqdn of the server.
 The rules work only on top of a clean Ubuntu 12.04 LTS (Precise Pangolin)
 installation.
 
+If you use LXC the machine can be created like this
+
+    lxc-create -n puavostandalone -t ubuntu -- --release precise --arch amd64
+
 For localhost
 
     sudo ansible-playbook -i local.inventory standalone.yml
