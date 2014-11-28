@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
 
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", (1024*2).to_s]
+    vb.customize ["modifyvm", :id, "--memory", (1024*4).to_s]
   end
 
   config.vm.provision "shell", path: "setup.sh"
