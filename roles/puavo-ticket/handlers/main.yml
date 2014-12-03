@@ -4,4 +4,4 @@
 
 - name: Run puavo-ticket migrations
   command: make migrate
-    chdir=/usr/lib/node_modules/puavo-ticket
+    chdir=/usr/lib/puavo-ticket
