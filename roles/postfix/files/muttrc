@@ -1,0 +1,6 @@
+set folder="~/Maildir"
+set mask="!^\.[^.]"
+set mbox="~/Maildir"
+set record="+.Sent"
+set postponed="+.Drafts"
+set spoolfile="~/Maildir"

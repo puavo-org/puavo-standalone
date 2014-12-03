@@ -1,0 +1,16 @@
+- name: Install postfix
+  apt: pkg=postfix state=present
+
+- name: Install mutt for email viewing
+  apt: pkg=mutt state=present
+
+- name: Configure mutt for local emails
+  copy: src=muttrc dest=/root/.muttrc
+
+- name: Configure post for local development use only
+  copy: src=main.cf dest=/etc/postfix/main.cf
+  notify: restart postfix
+
+- name: Copy postfix virtual domains file
+  copy: src=virtual dest=/etc/postfix/virtual
+  notify: update postmap virtual

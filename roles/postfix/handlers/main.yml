@@ -1,0 +1,5 @@
+- name: restart postfix
+  service: name=postfix state=restarted
+
+- name: update postmap virtual
+  command: postmap /etc/postfix/virtual

@@ -8,6 +8,7 @@ These rules will configure following services
   - PostgreSQL 9.3
   - Redis
   - Selenium server with Xvbf (:99) on port 4444
+  - Postfix
 
 and following puavo services
 
@@ -17,6 +18,12 @@ and following puavo services
   - [puavo-ticket](https://github.com/opinsys/puavo-ticket) on port 3002
 
 These services must be accessesed using the fqdn of the server.
+
+## Postfix
+
+Postfix is configured only for local development only. Any mail sent using it
+is saved to `/root/Maildir` in mbox format. A `mutt` client is configured for
+the root user to display those.
 
 # Applying the rules
 

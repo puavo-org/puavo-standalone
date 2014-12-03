@@ -8,6 +8,7 @@
     archive_server: archive.opinsys.fi
   roles:
     - common
+    - postfix
     - selenium
     - postgresql
     - puavo-ca
