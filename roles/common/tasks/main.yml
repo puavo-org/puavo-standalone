@@ -19,3 +19,6 @@
     - inotify-tools
     - vim-nox
     - git
+
+- name: Enable /etc/sudoers.d (not enable by default in precise)
+  lineinfile: dest=/etc/sudoers state=present regexp='^#includedir \/etc\/sudoers\.d$' line='#includedir /etc/sudoers.d' validate='visudo -cf %s'
