@@ -11,6 +11,12 @@
   copy: src=main.cf dest=/etc/postfix/main.cf
   notify: restart postfix
 
+- name: Set mailname
+  copy:
+    dest: /etc/mailname
+    content: "{{ hostname_command['stdout'] }}"
+  notify: restart postfix
+
 - name: Copy postfix virtual domains file
   copy: src=virtual dest=/etc/postfix/virtual
   notify: update postmap virtual
