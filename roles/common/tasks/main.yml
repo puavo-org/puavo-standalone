@@ -6,7 +6,7 @@
   apt_key: url=http://{{ archive_server }}/key state=present
 
 - name: Install fluentd
-  apt: pkg=fluentd state=present
+  apt: pkg=fluentd state=present force=yes
 
 - name: Install development tools
   action: apt pkg={{item}} state=present force=yes
