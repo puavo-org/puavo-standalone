@@ -1,0 +1,4 @@
+deb http://mirror.opinsys.fi {{ ansible_lsb.codename }} main universe restricted
+deb http://mirror.opinsys.fi {{ ansible_lsb.codename }}-updates main universe restricted
+deb http://mirror.opinsys.fi {{ ansible_lsb.codename }}-security main universe restricted
+

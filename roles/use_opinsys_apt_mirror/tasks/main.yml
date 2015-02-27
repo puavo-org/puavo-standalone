@@ -1,0 +1,6 @@
+
+- name: Use only mirror.opinsys.fi in /etc/apt/sources.list
+  template: src=sources.list dest=/etc/apt/sources.list
+
+- name: Update apt cache if not updated within 1 hour
+  apt: update_cache=yes cache_valid_time=3600
