@@ -5,9 +5,9 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "puavo-standalone"
   config.vm.box = "ubuntu/precise64"
 
-  config.vm.network "forwarded_port", guest: 8081, host: 8081
-  config.vm.network "forwarded_port", guest: 3002, host: 3002
-  config.vm.network "forwarded_port", guest: 9292, host: 9292
+  config.vm.network "forwarded_port", guest: 8081, host: 8081, host_ip: "0.0.0.0"
+  config.vm.network "forwarded_port", guest: 3002, host: 3002, host_ip: "0.0.0.0"
+  config.vm.network "forwarded_port", guest: 9292, host: 9292, host_ip: "0.0.0.0"
 
   config.ssh.forward_agent = true
 
