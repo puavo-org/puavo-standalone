@@ -6,7 +6,7 @@ set -eux
 apt-get install -y python-software-properties
 
 # Add Ansible ppa repository and install Ansible
-apt-add-repository ppa:rquillo/ansible --yes
+apt-add-repository ppa:ansible/ansible --yes
 apt-get update
 apt-get install -y ansible git
 
