@@ -16,6 +16,8 @@ password_management:
   port: 9393
 email_confirm_secret: secret
 default_organisation: hogwarts
+puavo_rest:
+  host: http://127.0.0.1:9292
 device_types:
   thinclient:
     label:
