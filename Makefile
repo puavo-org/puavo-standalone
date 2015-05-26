@@ -10,5 +10,8 @@ install-dirs:
 install: install-dirs
 	install -m 744 -t $(DESTDIR)$(sbindir) puavo-init-standalone
 
+ansible:
+	ansible-playbook -i local.inventory standalone.yml
+
 clean:
 
