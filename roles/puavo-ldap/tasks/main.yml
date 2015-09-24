@@ -46,7 +46,7 @@
         creates: "/var/lib/ldap/dc=edu,dc=heroes,dc=fi" }
 
 - name: Refresh organisations for puavo-rest
-  command: 'curl --fail -d refresh=1 -H "host: dummyorg" http://localhost:9292/v3/refresh_organisations'
+  command: 'curl --fail -d refresh=1 -H "host: hogwarts.opinsys.net" http://localhost:9292/v3/refresh_organisations'
 
 - name: Get hostname
   command: hostname -f
