@@ -45,8 +45,23 @@
         surname: "Xavier",
         creates: "/var/lib/ldap/dc=edu,dc=heroes,dc=fi" }
 
+- name: Install call-until-ok
+  copy:
+    dest: /usr/local/bin/call-until-ok
+    mode: a+x
+    content: |
+      #!/bin/sh
+      for i in $(seq 60); do
+          >/dev/null "$@" &&  exit 0
+          sleep 1
+      done
+      exit 1
+
 - name: Refresh organisations for puavo-rest
-  command: 'curl --fail -d refresh=1 -H "host: hogwarts.opinsys.net" http://localhost:9292/v3/refresh_organisations'
+  service: name=puavo-rest state=restarted
+
+- name: Wait for puavo-rest to wake up
+  command: 'call-until-ok curl --fail -H "host: hogwarts.opinsys.net" http://localhost:9292/v3/ldap_connection_test'
 
 - name: Get hostname
   command: hostname -f
