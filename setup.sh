@@ -1,4 +1,5 @@
 #!/bin/sh
+{ # do not allow partial execution
 
 set -eux
 
@@ -30,3 +31,5 @@ fi
 
 # Finally apply the rules to localhost
 ansible-playbook -i local.inventory standalone.yml
+
+}
