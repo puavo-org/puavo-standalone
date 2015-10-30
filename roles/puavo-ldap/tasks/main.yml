@@ -1,3 +1,9 @@
+- name: Install slapd-restore helper
+  copy:
+    src: slaprestore
+    dest: /usr/local/bin/slaprestore
+    mode: a+x
+
 - name: Add archive.opinsys.fi/slapd-old for slapd
   apt_repository: repo='deb http://{{ archive_server }}/slapd-old precise main' state=present
 

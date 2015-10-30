@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Dump database: sudo slapcat -b dc=edu,dc=orgname,dc=fi > orgname.dump
+
+ldap_base=$1
+backup_file=$2
+
+set -eu
+
+if [ "$backup_file" = "" -o "$ldap_base" = "" ]; then
+    >&2 echo "
+    usage: $(basename $0) <ldap base> <backup file>
+
+    Use
+
+        slapcat -b dc=edu,dc=orgname,dc=fi > orgname.dump
+
+    to create backup files
+    "
+    exit 1
+fi
+
+# Get absolute path
+backup_file=$(readlink -f "$backup_file")
+
+set -x
+
+cd /var/lib/ldap
+stop slapd || true
+rm -rf "$ldap_base"
+mkdir "$ldap_base"
+
+# -q makes things a lot faster but disables some error checking
+slapadd -q -b "$ldap_base" -l "$backup_file"
+chown -Rv openldap.openldap *
+sudo start slapd
