@@ -12,14 +12,14 @@
 
 - name: install postgresql
   apt: pkg=postgresql-9.3 state=present force=yes update_cache=yes
-  environment: postgresql_env
+  environment: '{{postgresql_env}}'
 
 - name: Install postgresql python module (required by Ansible)
   apt: pkg=python-psycopg2 state=present
 
 - name: Create databases
   sudo_user: postgres
-  environment: postgresql_env
+  environment: '{{postgresql_env}}'
   action: postgresql_db name={{item}}
                         encoding=UTF-8
                         lc_collate={{ postgresql_locale }}
