@@ -82,7 +82,9 @@ if $use_unsafe_passwords; then
     echo "$unsafe_password" > /etc/puavo/ds/pw-mgmt/password
 fi
 
-
+echo "Adding development organisation to list"
+echo "hogwarts" > /etc/puavo-ca/organisations/LIST
+echo "example" > /etc/puavo-ca/organisations/LIST
 echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
 cd /etc/puavo-ca/
