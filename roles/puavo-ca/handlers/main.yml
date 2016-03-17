@@ -3,5 +3,5 @@
   command: bundle exec rake db:migrate
   args:
     chdir: /var/app/puavo-ca-rails
-
-
+  environment:
+    RAILS_ENV: test
