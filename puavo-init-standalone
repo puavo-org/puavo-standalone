@@ -48,6 +48,7 @@ if $use_unsafe_passwords; then
     mkdir -p /etc/puavo/ldap
     echo "uid=admin,o=puavo" > /etc/puavo/ldap/dn
     echo "$unsafe_password" >  /etc/puavo/ldap/password
+    echo $( hostname -f ) > /etc/puavo/ldap/master
 
     mkdir -p /etc/puavo/ds/puavo
     echo "uid=puavo,o=puavo" > /etc/puavo/ds/puavo/dn
