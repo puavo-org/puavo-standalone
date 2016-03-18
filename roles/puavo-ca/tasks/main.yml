@@ -9,3 +9,8 @@
   copy:
     src=etc/init/puavo-ca-rails.conf
     dest=/etc/init/puavo-ca-rails.conf
+
+- name: Restart puavo-ca-rails
+  service:
+    name=puavo-ca-rails
+    state=started
