@@ -104,7 +104,7 @@ install -v -m 644 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.
 install -v -m 644 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
 
 cd /var/app/puavo-ca-rails
-RAILS_ENV=test bundle exec rake db:migrate
+RAILS_ENV=test sudo -u puavo bundle exec rake db:migrate
 restart puavo-ca-rails
 
 echo "Setting up rng-tools for puavo-ds"
