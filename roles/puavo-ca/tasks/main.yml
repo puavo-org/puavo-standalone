@@ -3,7 +3,14 @@
 
 - name: Install puavo-ca-rails
   apt: pkg=puavo-ca-rails state=latest
-  notify: Run puavo-ca migrations
+
+- name: Run puavo-ca migrations
+  sudo_user: puavo
+  command: bundle exec rake db:migrate
+  args:
+    chdir: /var/app/puavo-ca-rails
+  environment:
+    RAILS_ENV: test
 
 - name: Use test environment for puavo-ca-rails application
   copy:
