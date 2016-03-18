@@ -4,9 +4,6 @@
     dest: /usr/local/bin/slaprestore
     mode: a+x
 
-- name: Add archive.opinsys.fi/slapd-old for slapd
-  apt_repository: repo='deb http://{{ archive_server }}/slapd-old precise main' state=present
-
 - name: Install latest puavo-standalone, puavo-web, puavo-web-worker and puavo-rest
   action: apt pkg={{item}} state=latest force=yes
   with_items:
