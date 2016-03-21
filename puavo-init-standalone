@@ -103,10 +103,6 @@ install -v -m 644 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$c
 install -v -m 644 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
 install -v -m 644 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
 
-cd /var/app/puavo-ca-rails
-sudo -u puavo RAILS_ENV=test bundle exec rake db:migrate
-restart puavo-ca-rails
-
 echo "Setting up rng-tools for puavo-ds"
 # Often entropy for randomness is lacking on virtual machines which might cause
 # puavo-add-new-organisation to timeout. This can be worked around with
@@ -132,6 +128,10 @@ if $use_unsafe_passwords; then
 else
     puavo-init-ldap --save-admin-password
 fi
+
+cd /var/app/puavo-ca-rails
+sudo -u puavo RAILS_ENV=test bundle exec rake db:migrate
+restart puavo-ca-rails
 
 echo "Standalone init ok!"
 
