@@ -133,7 +133,5 @@ cd /var/app/puavo-ca-rails
 sudo -u puavo RAILS_ENV=test bundle exec rake db:migrate
 restart puavo-ca-rails
 
-exit 1 # FIXME: debug
-
 echo "Standalone init ok!"
 
