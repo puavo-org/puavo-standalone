@@ -12,4 +12,4 @@
 - name: Restart puavo-ca-rails
   service:
     name=puavo-ca-rails
-    state=started
+    state=restarted
