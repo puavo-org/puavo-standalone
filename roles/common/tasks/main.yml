@@ -3,7 +3,12 @@
   apt_repository: repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main' state=present update_cache=yes
 
 - name: Add key for archive.opinsys.fi
-  apt_key: url=http://{{ archive_server }}/key state=present
+  apt_key: data="{{ lookup('file', 'opinsys-archive.key') }}" state=present
+
+- name: Add higher priority for puavo-os packages in archive.opinsys.fi
+  template:
+    src=etc/apt/preferences.d/00-puavo.pref
+    dest=/etc/apt/preferences.d/00-puavo.pref
 
 - name: Install fluentd
   apt: pkg=fluentd state=present force=yes
