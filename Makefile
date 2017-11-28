@@ -13,5 +13,11 @@ install: install-dirs
 ansible:
 	ansible-playbook -i local.inventory standalone.yml
 
+deb:
+	rm -rf debian
+	cp -a debian.default debian
+	dch --newversion "$$(cat VERSION)+build$$(date +%s)" "Built from $$(git rev-parse HEAD)"
+	dpkg-buildpackage -us -uc
+
 clean:
 
