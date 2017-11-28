@@ -14,7 +14,7 @@
 - name: Install browsers
   action: apt pkg={{item}} state=present
   with_items:
-    - firefox
+    - firefox-esr
     - chromium
 
 - name: Selenium upstart script
