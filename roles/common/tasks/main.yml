@@ -1,6 +1,6 @@
 
-- name: Add archive.opinsys.fi/git-master
-  apt_repository: repo='deb http://{{ archive_server }}/git-master precise main' state=present update_cache=yes
+- name: Add archive.opinsys.fi/puavo-os
+  apt_repository: repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main' state=present update_cache=yes
 
 - name: Add key for archive.opinsys.fi
   apt_key: url=http://{{ archive_server }}/key state=present
