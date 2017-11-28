@@ -15,7 +15,7 @@
   action: apt pkg={{item}} state=present
   with_items:
     - firefox
-    - chromium-browser
+    - chromium
 
 - name: Selenium upstart script
   copy: src=selenium.upstart dest=/etc/init/selenium.conf
