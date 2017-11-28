@@ -7,7 +7,6 @@
     puavo_rest_port: 9292
     archive_server: archive.opinsys.fi
   roles:
-    - use_opinsys_apt_mirror
     - common
     - selenium
     - postgresql
