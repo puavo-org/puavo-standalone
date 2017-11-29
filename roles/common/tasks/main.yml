@@ -1,9 +1,9 @@
 
-- name: Add archive.opinsys.fi/puavo-os
-  apt_repository: repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main' state=present update_cache=yes
-
 - name: Add key for archive.opinsys.fi
   apt_key: data="{{ lookup('file', 'opinsys-archive.key') }}" state=present
+
+- name: Add archive.opinsys.fi/puavo-os
+  apt_repository: repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main' state=present update_cache=yes
 
 - name: Add higher priority for puavo-os packages in archive.opinsys.fi
   template:
