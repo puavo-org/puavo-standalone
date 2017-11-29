@@ -12,5 +12,4 @@
     - postgresql
     - puavo-ca
     - puavo-ldap
-    - puavo-ticket
     - postfix
