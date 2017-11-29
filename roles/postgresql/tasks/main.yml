@@ -12,7 +12,7 @@
   apt: pkg=python-psycopg2 state=present
 
 - name: Create databases
-  sudo_user: postgres
+  become_user: postgres
   environment: '{{postgresql_env}}'
   action: postgresql_db name={{item}}
                         encoding=UTF-8
@@ -24,11 +24,11 @@
     - puavo-ticket-test
 
 - name: Add Postgresql user
-  sudo_user: postgres
+  become_user: postgres
   postgresql_user: name=puavo-ticket password=password role_attr_flags=LOGIN
 
 - name: Grant permissions to postgres user for puavo-ticket databases
-  sudo_user: postgres
+  become_user: postgres
   action: postgresql_privs db={{item}}
                            privs=ALL
                            type=database

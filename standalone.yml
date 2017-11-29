@@ -1,5 +1,5 @@
 - hosts: puavostandalone
-  sudo: yes
+  become: yes
   vars:
     puavo_ca_port: 3000
     puavo_web_port: 3001
