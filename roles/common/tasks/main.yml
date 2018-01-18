@@ -10,9 +10,6 @@
     src=etc/apt/preferences.d/00-puavo.pref
     dest=/etc/apt/preferences.d/00-puavo.pref
 
-- name: Install fluentd
-  apt: pkg=fluentd state=present force=yes
-
 - name: Install development tools
   action: apt pkg={{item}} state=present force=yes
   with_items:
