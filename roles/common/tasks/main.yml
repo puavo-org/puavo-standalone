@@ -19,6 +19,7 @@
     - git
     - inotify-tools
     - puavo-devscripts
+    - sudo
     - tmux
     - vim-nox
     - wget
