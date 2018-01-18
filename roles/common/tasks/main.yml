@@ -13,16 +13,15 @@
 - name: Install development tools
   action: apt pkg={{item}} state=present force=yes
   with_items:
-    - puavo-devscripts
-    - build-essential
-    - tmux
-    - git
-    - wget
-    - curl
     - bash-completion
-    - inotify-tools
-    - vim-nox
+    - build-essential
+    - curl
     - git
+    - inotify-tools
+    - puavo-devscripts
+    - tmux
+    - vim-nox
+    - wget
 
 - name: Enable /etc/sudoers.d (not enable by default in precise)
   lineinfile: dest=/etc/sudoers state=present regexp='^#includedir \/etc\/sudoers\.d$' line='#includedir /etc/sudoers.d' validate='visudo -cf %s'
