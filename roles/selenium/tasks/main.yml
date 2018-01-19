@@ -37,9 +37,20 @@
     dest=/etc/systemd/system/selenium.service
   notify: Restart Selenium
 
-- name: Xvbf upstart script
-  copy: src=xvbf.upstart dest=/etc/init/xvbf.conf
-  notify: Restart Xvbf
+- name: Xvfb launcher script
+  copy:
+    src=usr/local/lib/xvfb.sh
+    dest=/usr/local/lib/xvfb.sh
+    owner=selenium
+    group=selenium
+    mode=0744
+  notify: Restart Xvfb
+
+- name: Xvfb systemd service
+  copy:
+    src=etc/systemd/system/xvfb.service
+    dest=/etc/systemd/system/xvfb.service
+  notify: Restart Selenium
 
 - name: Reload daemons
   command: systemctl daemon-reload
@@ -49,3 +60,9 @@
     name=selenium.service
     enabled=yes
   notify: Restart Selenium
+
+- name: Enable the Xvfb service
+  service:
+    name=xvfb.service
+    enabled=yes
+  notify: Restart Xvfb
