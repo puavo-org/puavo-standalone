@@ -1,9 +1,14 @@
 
 - name: Add key for archive.opinsys.fi
-  apt_key: data="{{ lookup('file', 'opinsys-archive.key') }}" state=present
+  apt_key:
+    data="{{ lookup('file', 'opinsys-archive.key') }}"
+    state=present
 
 - name: Add archive.opinsys.fi/puavo-os
-  apt_repository: repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main' state=present update_cache=yes
+  apt_repository:
+    repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main'
+    state=present
+    update_cache=yes
 
 - name: Add higher priority for puavo-os packages in archive.opinsys.fi
   template:
@@ -11,7 +16,10 @@
     dest=/etc/apt/preferences.d/00-puavo.pref
 
 - name: Install development tools
-  action: apt pkg={{item}} state=present force=yes
+  action:
+    apt pkg={{item}}
+    state=present
+    force=yes
   with_items:
     - bash-completion
     - build-essential
@@ -25,4 +33,9 @@
     - wget
 
 - name: Enable /etc/sudoers.d (not enable by default in precise)
-  lineinfile: dest=/etc/sudoers state=present regexp='^#includedir \/etc\/sudoers\.d$' line='#includedir /etc/sudoers.d' validate='visudo -cf %s'
+  lineinfile:
+    dest=/etc/sudoers
+    state=present
+    regexp='^#includedir \/etc\/sudoers\.d$'
+    line='#includedir /etc/sudoers.d'
+    validate='visudo -cf %s'
