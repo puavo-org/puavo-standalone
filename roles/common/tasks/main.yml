@@ -6,9 +6,12 @@
 
 - name: Add archive.opinsys.fi/puavo-os
   apt_repository:
-    repo='deb http://{{ archive_server }}/puavo-os {{ ansible_lsb.codename }} main'
+    repo='deb http://{{ archive_server }}/{{item}} {{ ansible_lsb.codename }} main'
     state=present
     update_cache=yes
+  with_items:
+    - puavo-os
+    - puavo-web
 
 - name: Add higher priority for puavo-os packages in archive.opinsys.fi
   template:
