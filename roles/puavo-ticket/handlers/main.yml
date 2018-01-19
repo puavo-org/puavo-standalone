@@ -1,7 +1,0 @@
-
-- name: Restart puavo-ticket
-  service: name=puavo-ticket state=restarted
-
-- name: Run puavo-ticket migrations
-  command: make migrate
-    chdir=/usr/lib/puavo-ticket
