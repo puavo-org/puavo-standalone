@@ -5,7 +5,9 @@
   apt: pkg=xvfb state=present
 
 - name: Download Selenium server
-  get_url: url=http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar dest=/usr/local/lib/selenium-server-standalone.jar
+  get_url:
+    url=http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar
+    dest=/usr/local/lib/selenium-server-standalone.jar
   notify: Restart Selenium
 
 - name: Add selenium user
