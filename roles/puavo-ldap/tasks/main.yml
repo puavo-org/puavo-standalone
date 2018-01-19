@@ -5,7 +5,10 @@
     mode: a+x
 
 - name: Install latest puavo-standalone, puavo-web, puavo-web-worker and puavo-rest
-  action: apt pkg={{item}} state=latest force=yes
+  action:
+    apt pkg={{item}}
+    state=latest
+    force=yes
   with_items:
     - puavo-standalone
     - puavo-web
