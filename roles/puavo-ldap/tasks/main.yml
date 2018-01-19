@@ -77,7 +77,8 @@
   copy: src=puavo-rest.yml dest=/etc/puavo-rest.yml
   notify: Restart puavo-rest
 
-- file: dest=/etc/puavo-web state=directory
+- name: Ensure /etc/puavo-web exists
+  file: dest=/etc/puavo-web state=directory
 
 - name: Add ldap configuration for puavo-web
   template: src=puavo-web/ldap.yml dest=/etc/puavo-web/ldap.yml
@@ -106,4 +107,3 @@
 - name: Add unicorn.rb for puavo-web
   copy: src=puavo-web/unicorn.rb dest=/etc/puavo-web/unicorn.rb
   notify: Restart puavo-web
-
