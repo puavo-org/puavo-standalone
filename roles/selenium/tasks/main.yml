@@ -11,7 +11,10 @@
   notify: Restart Selenium
 
 - name: Add selenium user
-  user: name=selenium system=yes uid=2345
+  user:
+    name=selenium
+    system=yes
+    uid=2345
 
 - name: Install browsers
   action: apt pkg={{item}} state=present
@@ -19,10 +22,30 @@
     - firefox-esr
     - chromium
 
-- name: Selenium upstart script
-  copy: src=selenium.upstart dest=/etc/init/selenium.conf
+- name: Selenium launcher script
+  copy:
+    src=usr/local/lib/selenium-server.sh
+    dest=/usr/local/lib/selenium-server.sh
+    owner=selenium
+    group=selenium
+    mode=0744
+  notify: Restart Selenium
+
+- name: Selenium systemd service
+  copy:
+    src=etc/systemd/system/selenium.service
+    dest=/etc/systemd/system/selenium.service
   notify: Restart Selenium
 
 - name: Xvbf upstart script
   copy: src=xvbf.upstart dest=/etc/init/xvbf.conf
   notify: Restart Xvbf
+
+- name: Reload daemons
+  command: systemctl daemon-reload
+
+- name: Enable the Selenium service
+  service:
+    name=selenium.service
+    enabled=yes
+  notify: Restart Selenium
