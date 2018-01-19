@@ -6,11 +6,6 @@
     - puavo-ca-setup
     - puavo-ca-rails
 
-- name: Use test environment for puavo-ca-rails application
-  copy:
-    src=etc/init/puavo-ca-rails.conf
-    dest=/etc/init/puavo-ca-rails.conf
-
 - name: Restart puavo-ca-rails
   service:
     name=puavo-ca-rails
