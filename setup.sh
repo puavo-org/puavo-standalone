@@ -3,13 +3,8 @@
 
 set -eux
 
-# Install apt-add-repository tool
-apt-get install -y python-software-properties
-
-# Add Ansible ppa repository and install Ansible
-apt-add-repository ppa:ansible/ansible --yes
 apt-get update
-apt-get install -y ansible git
+apt-get install -y ansible git less sudo ntp
 
 # If running in Vagrant use the playbook from the mount
 if [ -d /vagrant ]; then
