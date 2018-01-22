@@ -12,6 +12,7 @@
   with_items:
     - puavo-os
     - puavo-web
+    - puavo/
 
 - name: Add higher priority for puavo-os packages in archive.opinsys.fi
   template:
