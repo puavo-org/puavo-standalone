@@ -1,1 +1,0 @@
-PuavoUsers::Application.config.secret_token = "ksdjfhskdajhfkjsafhkjfhkjehw8329u2yoifuhshf87y3h82yhou3faew232y4i"

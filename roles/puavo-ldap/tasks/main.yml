@@ -108,10 +108,10 @@
     dest=/etc/puavo-web/puavo_external_files.yml
   notify: Restart puavo-web
 
-- name: Add secret_token.rb for puavo-web
+- name: Add secrets.yml for puavo-web
   copy:
-    src=etc/puavo-web/secret_token.rb
-    dest=/etc/puavo-web/secret_token.rb
+    src=etc/puavo-web/secrets.yml
+    dest=/etc/puavo-web/secrets.yml
   notify: Restart puavo-web
 
 - name: Add redis.yml for puavo-web
