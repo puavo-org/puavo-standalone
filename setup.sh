@@ -25,6 +25,6 @@ if [ ! -f standalone.yml ]; then
 fi
 
 # Finally apply the rules to localhost
-ansible-playbook -i local.inventory standalone.yml
+ansible-playbook -i local.inventory standalone.yml --diff
 
 }
