@@ -10,7 +10,6 @@
     state=latest
     force=yes
   with_items:
-    - puavo-standalone
     - puavo-web
     - puavo-rest
     - puavo-web-worker
