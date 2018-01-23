@@ -10,6 +10,7 @@
     state=latest
     force=yes
   with_items:
+    - puavo-standalone
     - puavo-web
     - puavo-rest
     - puavo-web-worker
@@ -17,6 +18,8 @@
 - name: Install redis for puavo-web & puavo-rest
   apt: pkg=redis-server state=present
 
+  # puavo-init-standalone is installed by the puavo-standalone package, but there is also
+  # a copy of the script in the repo directory. This is by design.
 - name: Initialize LDAP
   command: puavo-init-standalone --unsafe-passwords opinsys.net creates=/etc/puavo
 
