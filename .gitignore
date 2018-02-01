@@ -1,1 +1,9 @@
-debian
+debian/*-build-stamp
+debian/changelog.vc
+debian/.debhelper
+debian/*.debhelper
+debian/files
+debian/*.log
+debian/puavo-standalone
+debian/*.substvars
+debian/tmp
