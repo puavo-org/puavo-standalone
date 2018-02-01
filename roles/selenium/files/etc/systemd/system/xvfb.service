@@ -1,0 +1,16 @@
+# systemd service for Xvfb
+# Converted from the old upstart script
+
+[Unit]
+Description=Xvfb
+# I don't know if Selenium really needs this
+Before=selenium.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/lib/xvfb.sh
+User=selenium
+Group=selenium
+
+[Install]
+WantedBy=multi-user.target

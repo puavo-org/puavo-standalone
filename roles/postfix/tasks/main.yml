@@ -11,6 +11,12 @@
   copy: src=main.cf dest=/etc/postfix/main.cf
   notify: restart postfix
 
+# Let's do this again (see puavo-ldap), so this role works
+# independently (makes porting to Debian Stretch easier).
+- name: Get hostname
+  command: hostname -f
+  register: hostname_command
+
 - name: Set mailname
   copy:
     dest: /etc/mailname

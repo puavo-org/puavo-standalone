@@ -5,22 +5,64 @@
   apt: pkg=xvfb state=present
 
 - name: Download Selenium server
-  get_url: url=http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar dest=/usr/local/lib/selenium-server-standalone.jar
+  get_url:
+    url=http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar
+    dest=/usr/local/lib/selenium-server-standalone.jar
   notify: Restart Selenium
 
 - name: Add selenium user
-  user: name=selenium system=yes uid=2345
+  user:
+    name=selenium
+    system=yes
+    uid=2345
 
 - name: Install browsers
   action: apt pkg={{item}} state=present
   with_items:
-    - firefox
-    - chromium-browser
+    - firefox-esr
+    - chromium
 
-- name: Selenium upstart script
-  copy: src=selenium.upstart dest=/etc/init/selenium.conf
+- name: Selenium launcher script
+  copy:
+    src=usr/local/lib/selenium-server.sh
+    dest=/usr/local/lib/selenium-server.sh
+    owner=selenium
+    group=selenium
+    mode=0744
   notify: Restart Selenium
 
-- name: Xvbf upstart script
-  copy: src=xvbf.upstart dest=/etc/init/xvbf.conf
-  notify: Restart Xvbf
+- name: Selenium systemd service
+  copy:
+    src=etc/systemd/system/selenium.service
+    dest=/etc/systemd/system/selenium.service
+  notify: Restart Selenium
+
+- name: Xvfb launcher script
+  copy:
+    src=usr/local/lib/xvfb.sh
+    dest=/usr/local/lib/xvfb.sh
+    owner=selenium
+    group=selenium
+    mode=0744
+  notify: Restart Xvfb
+
+- name: Xvfb systemd service
+  copy:
+    src=etc/systemd/system/xvfb.service
+    dest=/etc/systemd/system/xvfb.service
+  notify: Restart Selenium
+
+- name: Reload daemons
+  command: systemctl daemon-reload
+
+- name: Enable the Selenium service
+  service:
+    name=selenium.service
+    enabled=yes
+  notify: Restart Selenium
+
+- name: Enable the Xvfb service
+  service:
+    name=xvfb.service
+    enabled=yes
+  notify: Restart Xvfb

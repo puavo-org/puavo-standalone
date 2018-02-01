@@ -3,13 +3,8 @@
 
 set -eux
 
-# Install apt-add-repository tool
-apt-get install -y python-software-properties
-
-# Add Ansible ppa repository and install Ansible
-apt-add-repository ppa:ansible/ansible --yes
 apt-get update
-apt-get install -y ansible git
+apt-get install -y ansible lsb-release git less sudo ntp
 
 # If running in Vagrant use the playbook from the mount
 if [ -d /vagrant ]; then
@@ -20,7 +15,7 @@ fi
 if [ ! -f standalone.yml ]; then
     # fetch it to a temp location using git
     if [ ! -d /tmp/puavo-standalone ]; then
-        git clone https://github.com/opinsys/puavo-standalone /tmp/puavo-standalone
+        git clone -b stretch https://github.com/opinsys/puavo-standalone /tmp/puavo-standalone
         cd /tmp/puavo-standalone
     else
         # if already fetched we update it
@@ -30,6 +25,6 @@ if [ ! -f standalone.yml ]; then
 fi
 
 # Finally apply the rules to localhost
-ansible-playbook -i local.inventory standalone.yml
+ansible-playbook -i local.inventory standalone.yml --diff
 
 }

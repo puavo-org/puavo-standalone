@@ -1,5 +1,5 @@
 - hosts: puavostandalone
-  sudo: yes
+  become: yes
   vars:
     puavo_ca_port: 3000
     puavo_web_port: 3001
@@ -7,11 +7,9 @@
     puavo_rest_port: 9292
     archive_server: archive.opinsys.fi
   roles:
-    - use_opinsys_apt_mirror
     - common
     - selenium
     - postgresql
     - puavo-ca
     - puavo-ldap
-    - puavo-ticket
     - postfix

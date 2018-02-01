@@ -5,9 +5,9 @@ Set of [Ansible][] rules for a standalone Puavo cloud environment.
 These rules will configure following services
 
   - OpenLDAP with MIT Kerberos
-  - PostgreSQL 9.3
+  - PostgreSQL
   - Redis
-  - Selenium server with Xvbf (:99) on port 4444
+  - Selenium server with Xvfb (:99) on port 4444
   - Postfix
 
 and following puavo services
@@ -15,7 +15,6 @@ and following puavo services
   - [puavo-web](https://github.com/opinsys/puavo-users) on port 8081
   - [puavo-ca](https://github.com/opinsys/puavo-ca)
   - [puavo-rest](https://github.com/opinsys/puavo-users/tree/master/rest) on port 9292
-  - [puavo-ticket](https://github.com/opinsys/puavo-ticket) on port 3002
 
 These services must be accessesed using the fqdn of the server.
 
@@ -27,8 +26,8 @@ the root user to display those.
 
 # Applying the rules
 
-The rules work only on top of a clean Ubuntu 12.04 LTS (Precise Pangolin)
-installation.
+These rules work only on top of a clean Debian 9 (Stretch) installation.
+Debian Jessie and Buster might work, but you'll be on your own.
 
 If you use LXC the machine can be created like this
 
@@ -57,4 +56,3 @@ in the repository root to get a vagrant machine with puavo-standalone. You must 
 [Ansible]: http://ansible.com
 [Vagrant]: https://www.vagrantup.com/
 [VirtualBox]: https://www.virtualbox.org/
-

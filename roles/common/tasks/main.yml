@@ -1,27 +1,37 @@
 
-- name: Add archive.opinsys.fi/git-master
-  apt_repository: repo='deb http://{{ archive_server }}/git-master precise main' state=present update_cache=yes
-
 - name: Add key for archive.opinsys.fi
-  apt_key: url=http://{{ archive_server }}/key state=present
+  apt_key:
+    data="{{ lookup('file', 'opinsys-archive.key') }}"
+    state=present
 
-- name: Install fluentd
-  apt: pkg=fluentd state=present force=yes
+- name: Add archive.opinsys.fi/puavo-os
+  apt_repository:
+    repo='deb http://{{ archive_server }}/{{item}} {{ ansible_lsb.codename }} main'
+    state=present
+    update_cache=yes
+  with_items:
+    - puavo-os
+    - puavo-web
+    - puavo/
+
+- name: Add higher priority for puavo-os packages in archive.opinsys.fi
+  template:
+    src=etc/apt/preferences.d/00-puavo.pref
+    dest=/etc/apt/preferences.d/00-puavo.pref
 
 - name: Install development tools
-  action: apt pkg={{item}} state=present force=yes
+  action:
+    apt pkg={{item}}
+    state=present
+    force=yes
   with_items:
-    - puavo-devscripts
-    - aptirepo-upload
-    - build-essential
-    - tmux
-    - git
-    - wget
-    - curl
     - bash-completion
-    - inotify-tools
-    - vim-nox
+    - build-essential
+    - curl
     - git
-
-- name: Enable /etc/sudoers.d (not enable by default in precise)
-  lineinfile: dest=/etc/sudoers state=present regexp='^#includedir \/etc\/sudoers\.d$' line='#includedir /etc/sudoers.d' validate='visudo -cf %s'
+    - inotify-tools
+    - puavo-devscripts
+    - sudo
+    - tmux
+    - vim-nox
+    - wget
