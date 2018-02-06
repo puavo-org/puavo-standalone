@@ -69,7 +69,7 @@
   service: name=puavo-rest state=restarted
 
 - name: Wait for puavo-rest to wake up
-  command: 'call-until-ok curl --fail -H "host: hogwarts.opinsys.net" http://localhost:9292/v3/ldap_connection_test'
+  command: 'call-until-ok curl --noproxy localhost --fail -H "host: hogwarts.opinsys.net" http://localhost:9292/v3/ldap_connection_test'
 
 - name: Get hostname
   command: hostname -f
