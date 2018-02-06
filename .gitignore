@@ -1,5 +1,5 @@
 debian/*-build-stamp
-debian/changelog.vc
+debian/changelog
 debian/.debhelper
 debian/*.debhelper
 debian/files
