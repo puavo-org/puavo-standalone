@@ -155,3 +155,4 @@
     - puavo-web
     - puavo-web-worker
     - puavo-rest
+    - puavo-ca-rails
