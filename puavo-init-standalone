@@ -129,6 +129,10 @@ else
     puavo-init-ldap --save-admin-password
 fi
 
+# This initializes the puavo-ca production database.
+puavo-ca-rails-migrate
+
+# This initializes the puavo-ca test database.
 cd /var/app/puavo-ca-rails
 sudo -u puavo RAILS_ENV=test bundle exec rake db:migrate
 service puavo-ca-rails restart
