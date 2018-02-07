@@ -26,11 +26,11 @@ backup_file=$(readlink -f "$backup_file")
 set -x
 
 cd /var/lib/ldap
-stop slapd || true
+service slapd stop || true
 rm -rf "$ldap_base"
 mkdir "$ldap_base"
 
 # -q makes things a lot faster but disables some error checking
 slapadd -q -b "$ldap_base" -l "$backup_file"
 chown -Rv openldap.openldap *
-sudo start slapd
+service slapd start

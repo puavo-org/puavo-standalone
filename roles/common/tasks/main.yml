@@ -26,6 +26,7 @@
     - curl
     - git
     - inotify-tools
+    - locales
     - puavo-devscripts
     - sudo
     - tmux
