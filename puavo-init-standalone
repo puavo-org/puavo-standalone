@@ -84,8 +84,10 @@ if $use_unsafe_passwords; then
 fi
 
 echo "Adding development organisation to list"
-echo "hogwarts" > /etc/puavo-ca/organisations/LIST
-echo "example" > /etc/puavo-ca/organisations/LIST
+cat <<'EOF' > /etc/puavo-ca/organisations/LIST
+example
+hogwarts
+EOF
 
 echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
