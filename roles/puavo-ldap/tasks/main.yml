@@ -128,27 +128,6 @@
     dest=/etc/puavo-web/unicorn.rb
   notify: Restart puavo-web
 
-# -------------------------------------------------------------------------------------------------
-# The following hacks are copied almost verbatim from puavo-web ansible rules.
-# They should be done using Debian's installation scripts or packaging scripts,
-# but they aren't.
-
-# Asset building is currently partially broken. The font files are (AFAIK) correctly named,
-# but the CSS continues to refer to the "plain" names. I tried to fix this, but failed. So
-# until we rewrite all of the styles (which will happen *soon*), we'll have to do one ugly
-# hack to make the buttons work. The hexadecimal IDs in the filenames are SHA256 hashes of
-# the respective file's contents.
-- name: Ugly font linking hack
-  file:
-    src="/var/app/puavo-web/public/assets/font/fontello-puavo/font/{{ item.source }}"
-    dest="/var/app/puavo-web/public/assets/font/fontello-puavo/font/{{ item.dest }}"
-    state=link
-  with_items:
-    - { source: 'puavo-icons-5006b6853b3fbf65bb14ea6e41709fd0a8d51e84f0f3cff0d76709d226ab67a0.eot', dest: 'puavo-icons.eot' }
-    - { source: 'puavo-icons-513eb681d0001873965e6df346f90a86ac7ea4c5a9536a09723448264b9cf139.svg', dest: 'puavo-icons.svg' }
-    - { source: 'puavo-icons-85edd5d8dda0e3698eb81262bae5ebdc008231cbc620ec5a8f5feded42562774.ttf', dest: 'puavo-icons.ttf' }
-    - { source: 'puavo-icons-8d7155d253af5a5eefb7c0bb2b0f122af8b680e515c76157f0439d4a2a1e2a7d.woff', dest: 'puavo-icons.woff' }
-
 - name: Tell systemd to start the puavo services at boot
   command: systemctl enable "{{ item }}.service"
   with_items:
