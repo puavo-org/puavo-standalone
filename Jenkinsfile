@@ -13,7 +13,7 @@ pipeline {
         sh '''
           apt-get update
           apt-get -y dist-upgrade
-          apt-get install -y apt-utils devscripts dpkg-dev make
+          apt-get install -y apt-utils devscripts dpkg-dev make rsync
         '''
       }
     }
