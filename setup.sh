@@ -4,7 +4,7 @@
 set -eux
 
 apt-get update
-apt-get install -y ansible git less lsb-release ntp sudo
+apt-get install -y ansible git less lsb-release ntp python sudo
 
 # If running in Vagrant use the playbook from the mount
 if [ -d /vagrant ]; then
