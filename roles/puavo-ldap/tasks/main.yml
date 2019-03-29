@@ -5,15 +5,14 @@
     mode: a+x
 
 - name: Install latest puavo-standalone, puavo-web, puavo-web-worker and puavo-rest
-  action:
-    apt pkg={{item}}
-    state=latest
-    force=yes
-  with_items:
-    - puavo-standalone
-    - puavo-web
-    - puavo-rest
-    - puavo-web-worker
+  apt:
+    pkg:
+      - puavo-standalone
+      - puavo-web
+      - puavo-rest
+      - puavo-web-worker
+    state: latest
+    force: yes
 
 - name: Install redis for puavo-web & puavo-rest
   apt: pkg=redis-server state=present

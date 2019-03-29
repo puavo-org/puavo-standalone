@@ -1,10 +1,9 @@
 - name: Install puavo-ca
   apt:
-    pkg={{ item }}
-    state=latest
-  with_items:
-    - puavo-ca-setup
-    - puavo-ca-rails
+    pkg:
+      - puavo-ca-setup
+      - puavo-ca-rails
+    state: latest
 
 - name: Restart puavo-ca-rails
   service:

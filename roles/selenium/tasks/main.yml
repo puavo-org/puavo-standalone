@@ -17,10 +17,11 @@
     uid=2345
 
 - name: Install browsers
-  action: apt pkg={{item}} state=present
-  with_items:
-    - firefox-esr
-    - chromium
+  apt:
+    pkg:
+      - firefox-esr
+      - chromium
+    state: present
 
 - name: Selenium launcher script
   copy:

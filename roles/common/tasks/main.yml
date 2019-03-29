@@ -16,19 +16,18 @@
     dest=/etc/apt/preferences.d/00-puavo.pref
 
 - name: Install development tools
-  action:
-    apt pkg={{item}}
-    state=present
-    force=yes
-  with_items:
-    - bash-completion
-    - build-essential
-    - curl
-    - git
-    - inotify-tools
-    - locales
-    - puavo-devscripts
-    - sudo
-    - tmux
-    - vim-nox
-    - wget
+  apt:
+    pkg:
+      - bash-completion
+      - build-essential
+      - curl
+      - git
+      - inotify-tools
+      - locales
+      - puavo-devscripts
+      - sudo
+      - tmux
+      - vim-nox
+      - wget
+    state: present
+    force: yes
