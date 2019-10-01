@@ -34,6 +34,7 @@ topdomain="$1"
 
 unsafe_password="password"
 hostname=$(hostname)
+puavo_certificates_dir=/etc/puavo-ca/certificates
 system_certdir=/etc/ssl/certs
 
 mkdir -p /etc/puavo/kerberos
@@ -82,8 +83,8 @@ if $use_unsafe_passwords; then
     echo "$unsafe_password" > /etc/puavo/ds/pw-mgmt/password
 fi
 
-for certdir in /etc/puavo-ca/certificates/*; do
-  if [ -d "$certdir" ]; then
+for certchain_dir in ${puavo_certificates_dir}/*; do
+  if [ -d "$certchain_dir" ]; then
     echo 'A certificate chain already exists, aborting...' >&2
     exit 1
   fi
@@ -91,35 +92,41 @@ done
 
 echo 'Making a new certificate chain with development organisations and server'
 puavo-make-new-ca-chain
-for certdir in /etc/puavo-ca/certificates/*; do
-  cat <<'EOF' > "${certdir}/organisations/LIST"
+for certchain_dir in ${puavo_certificates_dir}/*; do
+  cat <<'EOF' > "${certchain_dir}/organisations/LIST"
 example
 hogwarts
 EOF
 
-  echo "$hostname" > "${certdir}/servers/SERVERLIST"
+  echo "$hostname" > "${certchain_dir}/servers/SERVERLIST"
 
-  cd "$certdir"
+  cd "$certchain_dir"
 
   if $use_unsafe_passwords; then
-      make ROOT_PASS=$unsafe_password SERVER_PASS=$unsafe_password
+    make ROOT_PASS=$unsafe_password SERVER_PASS=$unsafe_password
   else
-      make
+    make
   fi
 
-  echo "Certificates generated at ${certdir}. Copying them for slapd..."
+  echo "Certificates generated at ${certchain_dir}. Copying them for slapd..."
   install -v -m 640 -g openldap \
-         "${certdir}/servers/${hostname}.${topdomain}.key" \
+         "${certchain_dir}/servers/${hostname}.${topdomain}.key" \
          "${system_certdir}/slapd-server.key"
   install -v -m 644 -g openldap \
-          "${certdir}/servers/${hostname}.${topdomain}.crt" \
+          "${certchain_dir}/servers/${hostname}.${topdomain}.crt" \
 	  "${system_certdir}/slapd-server.crt"
   install -v -m 644 -g openldap \
-          "${certdir}/servers/ca.servers.${topdomain}-bundle.pem" \
+          "${certchain_dir}/servers/ca.servers.${topdomain}-bundle.pem" \
 	  "${system_certdir}/slapd-ca.crt"
   install -v -m 644 -g openldap \
-          "${certdir}/rootca/ca.${topdomain}.crt" \
+          "${certchain_dir}/rootca/ca.${topdomain}.crt" \
 	  "${system_certdir}/ca.${topdomain}.crt"
+
+  cat <<EOF > /etc/puavo-ca-rails/puavo.yml
+certdirpath: ${puavo_certificates_dir}
+default_certchain_version: ${certchain_dir##*/}
+ldap_server:
+EOF
 done
 
 echo "Setting up rng-tools for puavo-ds"
@@ -143,9 +150,9 @@ EOF
 
 echo "Initializing slapd"
 if $use_unsafe_passwords; then
-    puavo-init-ldap --AUTO-YES --save-admin-password
+  puavo-init-ldap --AUTO-YES --save-admin-password
 else
-    puavo-init-ldap --save-admin-password
+  puavo-init-ldap --save-admin-password
 fi
 
 # This initializes the puavo-ca production database.
