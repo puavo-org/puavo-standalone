@@ -91,9 +91,7 @@ for certchain_dir in ${puavo_certificates_dir}/*; do
 done
 
 echo 'Making a new certificate chain'
-puavo-make-new-ca-chain
-sleep 2		# sleep, because puavo-make-new-ca-chain uses timestamp
-                # (with second precision for certificate chain version)
+puavo-make-new-ca-chain 20191001
 echo 'Making another certificate chain'
 puavo-make-new-ca-chain
 for certchain_dir in ${puavo_certificates_dir}/*; do
