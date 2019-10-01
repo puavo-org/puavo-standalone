@@ -34,14 +34,13 @@ topdomain="$1"
 
 unsafe_password="password"
 hostname=$(hostname)
-certdir=/etc/ssl/certs
-puavocerts=/etc/puavo-ca
+system_certdir=/etc/ssl/certs
 
 mkdir -p /etc/puavo/kerberos
 
 echo "Writing topdomain with kerberos to /etc/puavo"
-echo $topdomain > /etc/puavo/topdomain
-echo $topdomain | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
+echo "$topdomain" > /etc/puavo/topdomain
+echo "$topdomain" | tr '[:lower:]' '[:upper:]' > /etc/puavo/kerberos/toprealm
 
 
 if $use_unsafe_passwords; then
@@ -83,30 +82,45 @@ if $use_unsafe_passwords; then
     echo "$unsafe_password" > /etc/puavo/ds/pw-mgmt/password
 fi
 
+for certdir in /etc/puavo-ca/certificates/*; do
+  if [ -d "$certdir" ]; then
+    echo 'A certificate chain already exists, aborting...' >&2
+    exit 1
+  fi
+done
+
 echo 'Making a new certificate chain with development organisations and server'
 puavo-make-new-ca-chain
-for dir in /etc/puavo-ca/certificates/*; do
-  cat <<'EOF' > "${dir}/organisations/LIST"
+for certdir in /etc/puavo-ca/certificates/*; do
+  cat <<'EOF' > "${certdir}/organisations/LIST"
 example
 hogwarts
 EOF
 
-  echo "$hostname" > "${dir}/servers/SERVERLIST"
+  echo "$hostname" > "${certdir}/servers/SERVERLIST"
+
+  cd "$certdir"
+
+  if $use_unsafe_passwords; then
+      make ROOT_PASS=$unsafe_password SERVER_PASS=$unsafe_password
+  else
+      make
+  fi
+
+  echo "Certificates generated at ${certdir}. Copying them for slapd..."
+  install -v -m 640 -g openldap \
+         "${certdir}/servers/${hostname}.${topdomain}.key" \
+         "${system_certdir}/slapd-server.key"
+  install -v -m 644 -g openldap \
+          "${certdir}/servers/${hostname}.${topdomain}.crt" \
+	  "${system_certdir}/slapd-server.crt"
+  install -v -m 644 -g openldap \
+          "${certdir}/servers/ca.servers.${topdomain}-bundle.pem" \
+	  "${system_certdir}/slapd-ca.crt"
+  install -v -m 644 -g openldap \
+          "${certdir}/rootca/ca.${topdomain}.crt" \
+	  "${system_certdir}/ca.${topdomain}.crt"
 done
-
-cd /etc/puavo-ca/
-
-if $use_unsafe_passwords; then
-    make ROOT_PASS=$unsafe_password SERVER_PASS=$unsafe_password
-else
-    make
-fi
-
-echo "Certificates generated. Copying them for slapd..."
-install -v -m 640 -g openldap "$puavocerts/servers/$hostname.$topdomain.key" "$certdir/slapd-server.key"
-install -v -m 644 -g openldap "$puavocerts/servers/$hostname.$topdomain.crt" "$certdir/slapd-server.crt"
-install -v -m 644 -g openldap "$puavocerts/servers/ca.servers.$topdomain-bundle.pem" "$certdir/slapd-ca.crt"
-install -v -m 644 -g openldap "$puavocerts/rootca/ca.$topdomain.crt" "$certdir/ca.$topdomain.crt"
 
 echo "Setting up rng-tools for puavo-ds"
 # Often entropy for randomness is lacking on virtual machines which might cause
