@@ -83,11 +83,15 @@ if $use_unsafe_passwords; then
     echo "$unsafe_password" > /etc/puavo/ds/pw-mgmt/password
 fi
 
-echo "Adding development organisation to list"
-cat <<'EOF' > /etc/puavo-ca/organisations/LIST
+echo 'Making a new certificate chain'
+puavo-make-new-ca-chain
+echo 'Adding development organisation to list'
+for dir in /etc/puavo-ca/certificates/*; do
+  cat <<'EOF' > "${dir}/organisations/LIST"
 example
 hogwarts
 EOF
+done
 
 echo "Adding this server to server list for puavo-ca Makefile and generate certificates"
 echo $hostname > /etc/puavo-ca/servers/SERVERLIST
