@@ -12,9 +12,9 @@ These rules will configure following services
 
 and following puavo services
 
-  - [puavo-web](https://github.com/opinsys/puavo-users) on port 8081
-  - [puavo-ca](https://github.com/opinsys/puavo-ca)
-  - [puavo-rest](https://github.com/opinsys/puavo-users/tree/master/rest) on port 9292
+  - [puavo-web](https://github.com/puavo-org/puavo-web) on port 8081
+  - [puavo-ca](https://github.com/puavo-org/puavo-ca)
+  - [puavo-rest](https://github.com/puavo-org/puavo-web/tree/master/rest) on port 9292
 
 These services must be accessesed using the fqdn of the server.
 
@@ -41,7 +41,7 @@ For remote machines you must create your own inventory file.
 
 If you are lazy you can just do this like [other cool kids](http://curlpipesh.tumblr.com/)
 
-    wget -qO- https://github.com/opinsys/puavo-standalone/raw/master/setup.sh | sudo sh
+    wget -qO- https://github.com/puavo-org/puavo-standalone/raw/master/setup.sh | sudo sh
 
 It will install Ansible, clone this repository and apply the rules for localhost.
 
