@@ -146,7 +146,8 @@ EOF
 
 echo "Writing LDAP client config /etc/ldap/ldap.conf"
 cat >/etc/ldap/ldap.conf <<EOF
-TLS_CACERT ${system_certdir}/ca.${topdomain}.crt
+SASL_MECH   GSSAPI
+TLS_CACERT  ${system_certdir}/ca.${topdomain}.crt
 TLS_REQCERT demand
 EOF
 
