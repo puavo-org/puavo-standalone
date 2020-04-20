@@ -23,6 +23,22 @@
 - name: Initialize LDAP
   command: puavo-init-standalone --unsafe-passwords puavo.net creates=/etc/puavo
 
+- name: Create topdomain organisation for test and development
+  command: puavo-add-new-organisation --yes {{ item.organisation }} --username {{ item.username }} --password {{ item.password }} --given-name {{ item.givenname }} --surname {{ item.surname }} --domain {{ item.domain }} --samba-domain {{ item.sambadomain }} --krb-realm {{ item.kerberosrealm }} --suffix {{ item.suffix }} --no-cross-realm
+    creates={{ item.creates }}
+  notify: Seed LDAP database
+  with_items:
+    - { organisation: "puavo",
+        username: "admin",
+        password: "password",
+        givenname: "Admin",
+        surname: "Administrator",
+        domain: "puavo.net",
+        sambadomain: "PUAVO",
+        kerberosrealm: "PUAVO.NET",
+        suffix: "dc=puavo,dc=net",
+        creates: "/var/lib/ldap/dc=puavo,dc=net" }
+
 - name: Create organisations for test and development
   command: puavo-add-new-organisation --yes {{ item.organisation }} --username {{ item.username }} --password {{ item.password }} --given-name {{ item.givenname }} --surname {{ item.surname }}
     creates={{ item.creates }}
