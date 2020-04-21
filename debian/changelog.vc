@@ -1,4 +1,4 @@
-puavo-standalone (0.2.4) stretch; urgency=low
+puavo-standalone (0.2.4) buster; urgency=low
 
   * Initial release.
 
