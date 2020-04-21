@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Esa-Matti Suuronen <esa-matti.suuronen@opinsys.fi>
 Build-Depends: debhelper (>= 8)
 Standards-Version: 3.9.3
-Homepage: https://github.com/puavo-org/puavo-standalone
+Homepage: https://github.com/opinsys/puavo-standalone
 
 Package: puavo-standalone
 Architecture: all
