@@ -2,7 +2,7 @@ example:
   name: Example Organisation
   host: www.example.com
   ldap_host: {{ hostname_command["stdout"] }}
-  ldap_base: dc=edu,dc=example,dc=fi
+  ldap_base: dc=edu,dc=example,dc=net
   owner: cucumber
   owner_pw: cucumber
   locale: en
@@ -11,7 +11,7 @@ anotherorg:
   name: Another Organisation
   host: anotherorg.example.net
   ldap_host: {{ hostname_command["stdout"] }}
-  ldap_base: dc=edu,dc=anotherorg,dc=fi
+  ldap_base: dc=edu,dc=anotherorg,dc=net
   owner: admin
   owner_pw: admin
   locale: en
@@ -20,7 +20,7 @@ heroes:
   name: Super Heroes Organisation
   host: heroes.example.net
   ldap_host: {{ hostname_command["stdout"] }}
-  ldap_base: dc=edu,dc=heroes,dc=fi
+  ldap_base: dc=edu,dc=heroes,dc=net
   owner: admin
   owner_pw: admin
   locale: en
@@ -29,7 +29,7 @@ example2:
   name: Example Organisation
   host: 127.0.0.1
   ldap_host: jokor-puavo.example.net
-  ldap_base: dc=edu,dc=example,dc=fi
+  ldap_base: dc=edu,dc=example,dc=net
   owner: cucumber
   owner_pw: cucumber
   locale: en
@@ -40,5 +40,5 @@ hogwarts:
   name: Hogwarts
   host: "*"
   ldap_host: {{ hostname_command["stdout"] }}
-  ldap_base: dc=edu,dc=hogwarts,dc=fi
+  ldap_base: dc=edu,dc=hogwarts,dc=net
   locale: en

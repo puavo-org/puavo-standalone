@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Dump database: sudo slapcat -b dc=edu,dc=orgname,dc=fi > orgname.dump
+# Dump database: sudo slapcat -b dc=edu,dc=orgname,dc=net > orgname.dump
 
 ldap_base=$1
 backup_file=$2
@@ -13,7 +13,7 @@ if [ "$backup_file" = "" -o "$ldap_base" = "" ]; then
 
     Use
 
-        slapcat -b dc=edu,dc=orgname,dc=fi > orgname.dump
+        slapcat -b dc=edu,dc=orgname,dc=net > orgname.dump
 
     to create backup files
     "
