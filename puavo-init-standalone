@@ -21,14 +21,14 @@ help () {
 
 set -eu
 
-[ "$1" = "--help" -o "$1" = "-h" ] && help && exit
-[ "$1" = "" ] && help && exit 1
-
 use_unsafe_passwords=false
-if [ "$1" = "--unsafe-passwords" ]; then
+if [ "${1:-}" = "--unsafe-passwords" ]; then
     use_unsafe_passwords=true
     shift
 fi
+
+[ "${1:-}" = "--help" -o "${1:-}" = "-h" ] && help && exit
+[ "${1:-}" = "" ] && help && exit 1
 
 topdomain="$1"
 
