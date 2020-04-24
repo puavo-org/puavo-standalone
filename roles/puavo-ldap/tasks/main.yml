@@ -32,25 +32,25 @@
         password: "albus",
         givenname: "Albus",
         surname: "Dumbledore",
-        creates: "/var/lib/ldap/dc=edu,dc=hogwarts,dc=fi" }
+        creates: "/var/lib/ldap/dc=edu,dc=hogwarts,dc=net" }
     - { organisation: "example",
         username: "cucumber",
         password: "cucumber",
         givenname: "cucumber",
         surname: "cucumber",
-        creates: "/var/lib/ldap/dc=edu,dc=example,dc=fi" }
+        creates: "/var/lib/ldap/dc=edu,dc=example,dc=net" }
     - { organisation: "anotherorg",
         username: "admin",
         password: "admin",
         givenname: "Admin",
         surname: "Administrator",
-        creates: "/var/lib/ldap/dc=edu,dc=anotherorg,dc=fi" }
+        creates: "/var/lib/ldap/dc=edu,dc=anotherorg,dc=net" }
     - { organisation: "heroes",
         username: "admin",
         password: "admin",
         givenname: "Charles",
         surname: "Xavier",
-        creates: "/var/lib/ldap/dc=edu,dc=heroes,dc=fi" }
+        creates: "/var/lib/ldap/dc=edu,dc=heroes,dc=net" }
 
 - name: Install call-until-ok
   copy:
