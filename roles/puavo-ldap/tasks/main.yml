@@ -52,6 +52,12 @@
         givenname: "Charles",
         surname: "Xavier",
         creates: "/var/lib/ldap/dc=edu,dc=heroes,dc=net" }
+    - { organisation: "external",
+        username: "cucumber",
+        password: "cucumber",
+        givenname: "cucumber",
+        surname: "cucumber",
+        creates: "/var/lib/ldap/dc=edu,dc=external,dc=net" }
 
 - name: Install call-until-ok
   copy:
