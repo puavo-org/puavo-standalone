@@ -20,7 +20,7 @@
   # puavo-init-standalone is installed by the puavo-standalone package, but there is also
   # a copy of the script in the repo directory. This is by design.
 - name: Initialize LDAP
-  command: puavo-init-standalone --unsafe-passwords opinsys.net creates=/etc/puavo
+  command: puavo-init-standalone --unsafe-passwords puavo.net creates=/etc/puavo
 
 - name: Create organisations for test and development
   command: puavo-add-new-organisation --yes {{ item.organisation }} --username {{ item.username }} --password {{ item.password }} --given-name {{ item.givenname }} --surname {{ item.surname }}
@@ -68,7 +68,7 @@
   service: name=puavo-rest state=restarted
 
 - name: Wait for puavo-rest to wake up
-  command: 'call-until-ok curl --noproxy localhost --fail -H "host: hogwarts.opinsys.net" http://localhost:9292/v3/ldap_connection_test'
+  command: 'call-until-ok curl --noproxy localhost --fail -H "host: hogwarts.puavo.net" http://localhost:9292/v3/ldap_connection_test'
 
 - name: Get hostname
   command: hostname -f

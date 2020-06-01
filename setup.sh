@@ -15,7 +15,7 @@ fi
 if [ ! -f standalone.yml ]; then
     # fetch it to a temp location using git
     if [ ! -d /tmp/puavo-standalone ]; then
-        git clone https://github.com/opinsys/puavo-standalone /tmp/puavo-standalone
+        git clone https://github.com/puavo-org/puavo-standalone /tmp/puavo-standalone
         cd /tmp/puavo-standalone
     else
         # if already fetched we update it
