@@ -11,6 +11,11 @@ pipeline {
     stage('Prepare for build') {
       steps {
         sh '''
+          mkfifo /tmp/wait_for_something
+          read answer < /tmp/wait_for_something
+        '''
+
+        sh '''
           apt-get update
           apt-get -y dist-upgrade
           apt-get install -y apt-utils devscripts dpkg-dev make rsync
