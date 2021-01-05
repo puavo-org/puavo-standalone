@@ -1,8 +1,8 @@
 # puavo-standalone
 
-Set of [Ansible][] rules for a standalone Puavo cloud environment.
+Set of [Ansible](https://www.ansible.com/) rules for a standalone Puavo cloud environment, for development and testing.
 
-These rules will configure following services
+These rules will configure the following services:
 
   - OpenLDAP with MIT Kerberos
   - PostgreSQL
@@ -16,18 +16,29 @@ and following puavo services
   - [puavo-ca](https://github.com/puavo-org/puavo-ca)
   - [puavo-rest](https://github.com/puavo-org/puavo-web/tree/master/rest) on port 9292
 
-These services must be accessesed using the fqdn of the server.
+These services must be accessesed using the FQDN of the server.
 
 ## Postfix
 
-Postfix is configured only for local development only. Any mail sent using it
-is saved to `/root/Maildir` in mbox format. A `mutt` client is configured for
-the root user to display those.
+Postfix is configured only for local development only. Any mail sent using it is saved to `/root/Maildir` in mbox format. A `mutt` client is configured for the root user to display those.
 
 # Applying the rules
 
-These rules work only on top of a clean Debian 9 (Stretch) installation.
-Debian Jessie and Buster might work, but you'll be on your own.
+These rules work only on top of a clean Debian 10 (Buster) installation. The upcoming Debian Bullseye might work, but as of January 2021, it is not yet officially supported. Older Debian versions and other Linux distributions are not supported at all.
+
+The simplest way is to just fetch the installation script:
+
+    wget https://github.com/puavo-org/puavo-standalone/raw/master/setup.sh
+
+Then inspect it in your favorite editor to make sure there's nothing unruly in it. Once satisfied, execute it:
+
+    sudo sh setup.sh
+
+And wait for the installation to complete. It's not a bad idea to reboot the system afterwards, to make sure everything's in place.
+
+## LXC/Vagrant
+
+**The LXC and Vagrant installations are not currently supported. The relevant files exist, but they have not been updated or tested in a _very_ long time. They might nor might not work.**
 
 If you use LXC the machine can be created like this
 
@@ -39,20 +50,8 @@ For localhost
 
 For remote machines you must create your own inventory file.
 
-If you are lazy you can just do this like [other cool kids](http://curlpipesh.tumblr.com/)
-
-    wget -qO- https://github.com/puavo-org/puavo-standalone/raw/master/setup.sh | sudo sh
-
-It will install Ansible, clone this repository and apply the rules for localhost.
-
-# Vagrant
-
-If you use [Vagrant][] just type
+If you use [Vagrant](https://www.vagrantup.com/) just type
 
     vagrant up
 
-in the repository root to get a vagrant machine with puavo-standalone. You must have [VirtualBox][] installed for this to work.
-
-[Ansible]: http://ansible.com
-[Vagrant]: https://www.vagrantup.com/
-[VirtualBox]: https://www.virtualbox.org/
+in the repository root to get a vagrant machine with puavo-standalone. You must have [VirtualBox](https://www.virtualbox.org/) installed for this to work.
