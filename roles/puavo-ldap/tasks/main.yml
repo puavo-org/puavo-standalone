@@ -4,13 +4,12 @@
     dest: /usr/local/bin/slaprestore
     mode: a+x
 
-- name: Install latest puavo-standalone, puavo-web, puavo-web-worker and puavo-rest
+- name: Install latest puavo-standalone, puavo-web and puavo-rest
   apt:
     pkg:
       - puavo-standalone
       - puavo-web
       - puavo-rest
-      - puavo-web-worker
     state: latest
     force: yes
 
@@ -137,6 +136,5 @@
   command: systemctl enable "{{ item }}.service"
   with_items:
     - puavo-web
-    - puavo-web-worker
     - puavo-rest
     - puavo-ca-rails
