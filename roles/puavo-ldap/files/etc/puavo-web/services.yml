@@ -4,4 +4,4 @@ services:
   - infotv:
       url: /infotv
   - change_password:
-      url: /users/password
+      url: /users/password/own
