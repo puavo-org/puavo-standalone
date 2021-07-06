@@ -70,17 +70,13 @@ if $use_unsafe_passwords; then
     echo "uid=kdc,o=puavo" > /etc/puavo/ds/kdc/dn
     echo "$unsafe_password" > /etc/puavo/ds/kdc/password
 
-    mkdir -p /etc/puavo/ds/puppet
-    echo "uid=puppet,o=puavo" > /etc/puavo/ds/puppet/dn
-    echo "$unsafe_password" > /etc/puavo/ds/puppet/password
-
-    mkdir -p /etc/puavo/ds/puavo-ticket
-    echo "uid=puavo-ticket,o=puavo" > /etc/puavo/ds/puavo-ticket/dn
-    echo "$unsafe_password" > /etc/puavo/ds/puavo-ticket/password
-
     mkdir -p /etc/puavo/ds/pw-mgmt
     echo "uid=pw-mgmt,o=puavo" > /etc/puavo/ds/pw-mgmt/dn
     echo "$unsafe_password" > /etc/puavo/ds/pw-mgmt/password
+
+    mkdir -p /etc/puavo/ds/statistics
+    echo "uid=statistics,o=puavo" > /etc/puavo/ds/statistics/dn
+    echo "$unsafe_password" > /etc/puavo/ds/statistics/password
 fi
 
 for certchain_dir in ${puavo_certificates_dir}/*; do
