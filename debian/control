@@ -8,7 +8,7 @@ Homepage: https://github.com/puavo-org/puavo-standalone
 
 Package: puavo-standalone
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, puavo-ds-master, puavo-client, puavo-ca-setup, puavo-ca-rails, rng-tools
+Depends: ${shlibs:Depends}, ${misc:Depends}, puavo-ds-master, puavo-client, puavo-ca-setup, puavo-ca-rails, rng-tools-debian
 Description: Setup Puavo development environment to a single machine
  Puavo development!
 

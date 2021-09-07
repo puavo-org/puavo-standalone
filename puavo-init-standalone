@@ -14,7 +14,7 @@ help () {
           /etc/ssl/certs for slapd.
         - Set fqdn to point localhost
         - Configure LDAP client
-        - Configure rng-tools
+        - Configure rng-tools-debian
     "
 }
 
@@ -127,12 +127,12 @@ ldap_server:
 EOF
 done
 
-echo "Setting up rng-tools for puavo-ds"
+echo "Setting up rng-tools-debian for puavo-ds"
 # Often entropy for randomness is lacking on virtual machines which might cause
 # puavo-add-new-organisation to timeout. This can be worked around with
-# rng-tools
-echo "HRNGDEVICE=/dev/urandom" > /etc/default/rng-tools
-/etc/init.d/rng-tools restart
+# rng-tools-debian
+echo "HRNGDEVICE=/dev/urandom" > /etc/default/rng-tools-debian
+/etc/init.d/rng-tools-debian restart
 
 # Write fqdn
 cat > /etc/hosts <<EOF
