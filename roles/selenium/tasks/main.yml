@@ -6,7 +6,7 @@
 
 - name: Download Selenium server
   get_url:
-    url=http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar
+    url=https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
     dest=/usr/local/lib/selenium-server-standalone.jar
   notify: Restart Selenium
 
