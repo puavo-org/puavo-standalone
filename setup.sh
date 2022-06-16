@@ -6,11 +6,6 @@ set -eux
 apt-get update
 apt-get install -y ansible git less lsb-release ntp python3 sudo gpg
 
-# If running in Vagrant use the playbook from the mount
-if [ -d /vagrant ]; then
-    cd /vagrant
-fi
-
 # If we don't have the playbook
 if [ ! -f standalone.yml ]; then
     # fetch it to a temp location using git

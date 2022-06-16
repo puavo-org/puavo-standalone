@@ -26,6 +26,8 @@ Postfix is configured only for local development only. Any mail sent using it is
 
 These rules work only on top of a clean Debian 10 (Buster) installation. The upcoming Debian Bullseye might work, but as of January 2021, it is not yet officially supported. Older Debian versions and other Linux distributions are not supported at all.
 
+**CAUTION**: The installation script will fail if user "puavo" and/or group "puavo" already exists in the system!
+
 The simplest way is to just fetch the installation script:
 
     wget https://github.com/puavo-org/puavo-standalone/raw/master/setup.sh
@@ -35,23 +37,3 @@ Then inspect it in your favorite editor to make sure there's nothing unruly in i
     sudo sh setup.sh
 
 And wait for the installation to complete. It's not a bad idea to reboot the system afterwards, to make sure everything's in place.
-
-## LXC/Vagrant
-
-**The LXC and Vagrant installations are not currently supported. The relevant files exist, but they have not been updated or tested in a _very_ long time. They might nor might not work.**
-
-If you use LXC the machine can be created like this
-
-    lxc-create -n puavostandalone -t ubuntu -- --release precise --arch amd64
-
-For localhost
-
-    sudo ansible-playbook -i local.inventory standalone.yml
-
-For remote machines you must create your own inventory file.
-
-If you use [Vagrant](https://www.vagrantup.com/) just type
-
-    vagrant up
-
-in the repository root to get a vagrant machine with puavo-standalone. You must have [VirtualBox](https://www.virtualbox.org/) installed for this to work.
