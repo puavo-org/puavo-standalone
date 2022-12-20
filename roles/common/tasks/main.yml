@@ -4,9 +4,10 @@
     data="{{ lookup('file', 'opinsys-archive.key') }}"
     state=present
 
-- name: Add archive.opinsys.fi/puavo
+- name: Add http://archive.opinsys.fi/puavo
   apt_repository:
-    repo='deb http://{{ archive_server }}/puavo/ {{ ansible_lsb.codename }} main'
+    filename='/etc/apt/sources.list.d/puavo-os-remote.list'
+    repo='deb http://{{ archive_server }}/puavo {{ ansible_lsb.codename }} main contrib non-free'
     state=present
     update_cache=yes
 
