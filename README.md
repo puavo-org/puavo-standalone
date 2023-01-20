@@ -24,7 +24,7 @@ Postfix is configured only for local development only. Any mail sent using it is
 
 # Applying the rules
 
-These rules work only on top of a clean Debian 10 (Buster) installation. The upcoming Debian Bullseye might work, but as of January 2021, it is not yet officially supported. Older Debian versions and other Linux distributions are not supported at all.
+These rules work only on top of a clean Debian 11 (Bullseye) installation. The upcoming Debian Bookworm might work, but as of January 2023, it is not yet officially supported. Older Debian versions and other Linux distributions are not supported at all.
 
 **CAUTION**: The installation script will fail if user "puavo" and/or group "puavo" already exists in the system!
 
