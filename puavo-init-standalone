@@ -77,6 +77,18 @@ if $use_unsafe_passwords; then
     mkdir -p /etc/puavo/ds/statistics
     echo "uid=statistics,o=puavo" > /etc/puavo/ds/statistics/dn
     echo "$unsafe_password" > /etc/puavo/ds/statistics/password
+
+    mkdir -p /etc/puavo/ds/email-mgmt
+    echo "uid=email-mgmt,o=puavo" > /etc/puavo/ds/email-mgmt/dn
+    echo "$unsafe_password" > /etc/puavo/ds/email-mgmt/password
+
+    mkdir -p /etc/puavo/ds/examomatic
+    echo "uid=examomatic,o=puavo" > /etc/puavo/ds/examomatic/dn
+    echo "$unsafe_password" > /etc/puavo/ds/examomatic/password
+
+    mkdir -p /etc/puavo/ds/importtool
+    echo "uid=importtool,o=puavo" > /etc/puavo/ds/importtool/dn
+    echo "$unsafe_password" > /etc/puavo/ds/importtool/password
 fi
 
 for certchain_dir in ${puavo_certificates_dir}/*; do
