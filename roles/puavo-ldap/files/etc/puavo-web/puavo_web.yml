@@ -16,6 +16,9 @@ password_management:
   host: 127.0.0.1
   port: 9393
 email_confirm_secret: secret
+email_management:
+  host: 127.0.0.1
+  port: 9292
 default_organisation: hogwarts
 puavo_rest:
   host: http://127.0.0.1:9292
