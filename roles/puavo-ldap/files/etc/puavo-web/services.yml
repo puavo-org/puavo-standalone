@@ -3,3 +3,5 @@ services:
       url: /users
   - change_password:
       url: /users/password/own
+  - forgot_password:
+      url: /users/password/forgot
