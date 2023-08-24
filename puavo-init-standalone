@@ -78,6 +78,10 @@ if $use_unsafe_passwords; then
     echo "uid=statistics,o=puavo" > /etc/puavo/ds/statistics/dn
     echo "$unsafe_password" > /etc/puavo/ds/statistics/password
 
+    mkdir -p /etc/puavo/ds/cert-mgmt
+    echo "uid=cert-mgmt,o=puavo" > /etc/puavo/ds/cert-mgmt/dn
+    echo "$unsafe_password" > /etc/puavo/ds/cert-mgmt/password
+
     mkdir -p /etc/puavo/ds/email-mgmt
     echo "uid=email-mgmt,o=puavo" > /etc/puavo/ds/email-mgmt/dn
     echo "$unsafe_password" > /etc/puavo/ds/email-mgmt/password
