@@ -1,3 +1,9 @@
+puavo-standalone (0.2.5) bookworm; urgency=medium
+
+  * Update for Bookworm.
+
+ -- Puavo Org <dev@opinsys.fi>  Thu, 09 Nov 2023 12:53:20 +0200
+
 puavo-standalone (0.2.4) bullseye; urgency=low
 
   * Initial release.
