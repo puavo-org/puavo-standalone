@@ -20,6 +20,7 @@ if [ ! -f standalone.yml ]; then
 fi
 
 # Finally apply the rules to localhost
-ansible-playbook -i local.inventory standalone.yml --diff
+env LC_ALL=en_US.UTF-8 \
+  ansible-playbook -i local.inventory standalone.yml --diff
 
 }
