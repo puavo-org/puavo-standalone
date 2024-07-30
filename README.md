@@ -13,8 +13,8 @@ These rules will configure the following services:
 and following puavo services
 
   - [puavo-web](https://github.com/puavo-org/puavo-web) on port 8081
-  - [puavo-ca](https://github.com/puavo-org/puavo-ca)
   - [puavo-rest](https://github.com/puavo-org/puavo-web/tree/master/rest) on port 9292
+  - [puavo-ca](https://github.com/puavo-org/puavo-ca) on port 8080
 
 These services must be accessesed using the FQDN of the server.
 
@@ -24,7 +24,7 @@ Postfix is configured only for local development only. Any mail sent using it is
 
 # Applying the rules
 
-These rules work only on top of a clean Debian 11 (Bullseye) installation. The upcoming Debian Bookworm might work, but as of January 2023, it is not yet officially supported. Older Debian versions and other Linux distributions are not supported at all.
+These rules work only on top of a clean Debian 12 (Bookworm) installation. Other Debian versions and other Linux distributions are not supported at all.
 
 **CAUTION**: The installation script will fail if user "puavo" and/or group "puavo" already exists in the system!
 
