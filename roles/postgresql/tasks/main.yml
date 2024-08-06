@@ -1,8 +1,8 @@
-- name: Ensure required locale
-  locale_gen: name={{ postgresql_locale }} state=present
-
-- name: Set the postgresql locale as the default system locale
-  copy: dest=/etc/default/locale content=LANG={{ postgresql_locale }}
+#- name: Ensure required locale
+#  locale_gen: name={{ postgresql_locale }} state=present
+#
+#- name: Set the postgresql locale as the default system locale
+#  copy: dest=/etc/default/locale content=LANG={{ postgresql_locale }}
 
 - name: install postgresql
   apt: pkg=postgresql state=present force=yes update_cache=yes
