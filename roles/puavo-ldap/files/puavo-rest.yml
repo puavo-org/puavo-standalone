@@ -1,4 +1,4 @@
 bootserver: false
 cloud: true
 redis:
-  db: 5
+  db: 1
