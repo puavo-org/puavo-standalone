@@ -132,6 +132,19 @@
     dest=/etc/puavo-web/unicorn.rb
   notify: Restart puavo-web
 
+- name: Ensure /etc/puavo-rest.d exists
+  file:
+    path="/etc/puavo-rest.d"
+    state=directory
+
+- name: Copy the OAuth2 example private and public key files
+  copy:
+    src="etc/puavo-rest.d/{{item}}"
+    dest="/etc/puavo-rest.d/{{item}}"
+  with_items:
+    - "oauth2_token_signing_private_key_example.pem"
+    - "oauth2_token_signing_public_key_example.pem"
+
 - name: Tell systemd to start the puavo services at boot
   command: systemctl enable "{{ item }}.service"
   with_items:
