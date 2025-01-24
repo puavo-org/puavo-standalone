@@ -4,7 +4,7 @@
 set -eux
 
 apt-get update
-apt-get install -y ansible git less lsb-release python3 sudo gpg
+apt-get install -y ansible git less lsb-release python3 python3-psycopg2 sudo gpg
 
 # If we don't have the playbook
 if [ ! -f standalone.yml ]; then
