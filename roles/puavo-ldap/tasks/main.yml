@@ -145,6 +145,63 @@
     - "oauth2_token_signing_private_key_example.pem"
     - "oauth2_token_signing_public_key_example.pem"
 
+- name: Create the OAuth2 clients database
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_db:
+    name: "oauth2"
+    state: present
+
+- name: Create the puavo-standalone user for the OAuth2 clients database
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: "oauth2"
+    name: "standalone_user"
+    password: "standalone_password"
+    state: present
+
+- name: Create the OAuth2 login clients table
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_table:
+    db: "oauth2"
+    name: "login_clients"
+    columns:
+      - client_id TEXT UNIQUE NOT NULL PRIMARY KEY
+      - enabled BOOLEAN NOT NULL DEFAULT FALSE
+      - puavo_service_dn TEXT NOT NULL
+      - allowed_redirects TEXT[] NOT NULL
+      - allowed_scopes TEXT[] NOT NULL
+
+- name: Create the OAuth2 access token clients table
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_table:
+    db: "oauth2"
+    name: "token_clients"
+    columns:
+      - client_id TEXT UNIQUE NOT NULL PRIMARY KEY
+      - enabled BOOLEAN NOT NULL DEFAULT FALSE
+      - client_auth_type TEXT NOT NULL
+      - client_auth_data TEXT
+      - puavo_service_dn TEXT
+      - allowed_scopes TEXT[] NOT NULL
+      - allowed_endpoints TEXT[]
+      - allowed_organisations TEXT[]
+
+- name: Grant tables access to standalone_user
+  # Remember that puavo-standalone is not used in production, and in
+  # production the user has very limited privileges.
+  become: true
+  become_user: postgres
+  postgresql_privs:
+    db: "oauth2"
+    roles: "standalone_user"
+    type: table
+    privs: SELECT,INSERT,UPDATE,DELETE
+    objs: login_clients,token_clients
+
 - name: Tell systemd to start the puavo services at boot
   command: systemctl enable "{{ item }}.service"
   with_items:
