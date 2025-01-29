@@ -173,6 +173,8 @@
       - puavo_service_dn TEXT NOT NULL
       - allowed_redirects TEXT[] NOT NULL
       - allowed_scopes TEXT[] NOT NULL
+      - created TIMESTAMP NOT NULL
+      - modified TIMESTAMP NOT NULL
 
 - name: Create the OAuth2 access token clients table
   become: true
@@ -182,13 +184,15 @@
     name: "token_clients"
     columns:
       - client_id TEXT UNIQUE NOT NULL PRIMARY KEY
+      - client_password TEXT NOT NULL
       - enabled BOOLEAN NOT NULL DEFAULT FALSE
-      - client_auth_type TEXT NOT NULL
-      - client_auth_data TEXT
-      - puavo_service_dn TEXT
+      - expires_in INTEGER NOT NULL DEFAULT 3600
       - allowed_scopes TEXT[] NOT NULL
       - allowed_endpoints TEXT[]
       - allowed_organisations TEXT[]
+      - created TIMESTAMP NOT NULL
+      - modified TIMESTAMP NOT NULL
+      - password_changed TIMESTAMP NOT NULL
 
 - name: Grant tables access to standalone_user
   # Remember that puavo-standalone is not used in production, and in
