@@ -171,6 +171,7 @@
       - client_id TEXT UNIQUE NOT NULL PRIMARY KEY
       - enabled BOOLEAN NOT NULL DEFAULT FALSE
       - puavo_service_dn TEXT NOT NULL
+      - ldap_user_dn TEXT
       - allowed_redirects TEXT[] NOT NULL
       - allowed_scopes TEXT[] NOT NULL
       - created TIMESTAMP NOT NULL
@@ -187,6 +188,7 @@
       - client_password TEXT NOT NULL
       - enabled BOOLEAN NOT NULL DEFAULT FALSE
       - expires_in INTEGER NOT NULL DEFAULT 3600
+      - ldap_user_dn TEXT
       - allowed_scopes TEXT[] NOT NULL
       - allowed_endpoints TEXT[]
       - allowed_organisations TEXT[]
