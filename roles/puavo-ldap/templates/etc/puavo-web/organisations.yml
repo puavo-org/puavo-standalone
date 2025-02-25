@@ -6,10 +6,6 @@ example:
   owner: cucumber
   owner_pw: cucumber
   locale: en
-  schooladmin_permissions:
-    by_username:
-      superadmin:
-        create_single_users: true
 
 anotherorg:
   name: Another Organisation
