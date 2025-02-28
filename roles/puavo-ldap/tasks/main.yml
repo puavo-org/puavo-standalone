@@ -196,9 +196,53 @@
       - modified TIMESTAMP NOT NULL
       - password_changed TIMESTAMP NOT NULL
 
+- name: Create the OAuth2 issued access tokens history table
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_table:
+    db: "oauth2"
+    name: "issued_tokens_history"
+    columns:
+      - id UUID PRIMARY KEY
+      - issuer TEXT NOT NULL
+      - request_ip INET
+      - type TEXT NOT NULL
+      - client_id TEXT NOT NULL
+      - subject TEXT NOT NULL
+      - audience TEXT NOT NULL
+      - issued_at TIMESTAMP NOT NULL
+      - expires_at TIMESTAMP NOT NULL
+      - matching_redirect_uri TEXT
+      - raw_requested_scopes TEXT NOT NULL
+      - issued_scopes TEXT[] NOT NULL
+      - issued_endpoints TEXT[]
+      - issued_organisations TEXT[]
+
+- name: Create the OAuth2 access token usage history table
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_table:
+    db: "oauth2"
+    name: "token_usage_history"
+    columns:
+      - id UUID PRIMARY KEY
+      - token_id UUID
+      - timestamp TIMESTAMP NOT NULL
+      - request_ip INET
+      - status TEXT NOT NULL
+      - error TEXT
+      - organisation TEXT
+      - client_id TEXT
+      - audience TEXT
+      - requested_scopes TEXT[]
+      - target_endpoint TEXT
+      - raw_token TEXT
+
 - name: Grant tables access to standalone_user
   # Remember that puavo-standalone is not used in production, and in
   # production the user has very limited privileges.
+  # TODO: These users probably should be 100% identical in puavo-standalone and production,
+  # to avoid surprises.
   become: true
   become_user: postgres
   postgresql_privs:
@@ -206,7 +250,7 @@
     roles: "standalone_user"
     type: table
     privs: SELECT,INSERT,UPDATE,DELETE
-    objs: login_clients,token_clients
+    objs: login_clients,token_clients,issued_tokens_history,token_usage_history
 
 - name: Tell systemd to start the puavo services at boot
   command: systemctl enable "{{ item }}.service"
