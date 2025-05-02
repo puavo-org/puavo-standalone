@@ -6,6 +6,8 @@ example:
   owner: cucumber
   owner_pw: cucumber
   locale: en
+  enable_sso_sessions_in:
+    - "session_test.example.com"
 
 anotherorg:
   name: Another Organisation
