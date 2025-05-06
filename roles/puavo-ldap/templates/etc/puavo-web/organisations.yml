@@ -8,6 +8,7 @@ example:
   locale: en
   enable_sso_sessions_in:
     - "session_test.example.com"
+    - "session_test2.example.com"
 
 anotherorg:
   name: Another Organisation
