@@ -132,6 +132,12 @@
     dest=/etc/puavo-web/unicorn.rb
   notify: Restart puavo-web
 
+- name: Add super_owners.txt for puavo-web
+  copy:
+    src=etc/puavo-web/super_owners.txt
+    dest=/etc/puavo-web/super_owners.txt
+  notify: Restart puavo-web
+
 - name: Ensure /etc/puavo-rest.d exists
   file:
     path="/etc/puavo-rest.d"
