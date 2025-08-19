@@ -157,3 +157,22 @@ device_types:
     url: /devices/%s/devices/new.json?device_type=other
     order: 13
     school_required: true
+
+branding:
+  copyright: "© Opinsys Oy"
+  copyright_year: "2025"
+  copyright_with_year: "© Opinsys Oy 2025"
+
+  manufacturer:
+    name: "Opinsys"
+    url: "https://opinsys.fi"
+    logo: "/login/opinsys_logo.svg"
+    alt_text: "Opinsys Oy logo"
+    title: "Opinsys Oy"
+    logo_width: 150
+    logo_height: 34
+    mfa_issuer: "Opinsys"
+    technical_support_email: "support@hogwarts.puavo.net"
+    technical_support_phone:
+      short: "1234567890"
+      international: "+358 1234567890"
