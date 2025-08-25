@@ -24,13 +24,13 @@ Postfix is configured only for local development only. Any mail sent using it is
 
 # Applying the rules
 
-These rules work only on top of a clean Debian 12 (Bookworm) installation. Other Debian versions and other Linux distributions are not supported at all.
+These rules work only on top of a clean Debian 13 (Trixie) installation. Other Debian versions and other Linux distributions are not supported at all.
 
 **CAUTION**: The installation script will fail if user "puavo" and/or group "puavo" already exists in the system!
 
 The simplest way is to just fetch the installation script:
 
-    wget https://github.com/puavo-org/puavo-standalone/raw/master/setup.sh
+    wget https://github.com/puavo-org/puavo-standalone/raw/trixie/setup.sh
 
 Then inspect it in your favorite editor to make sure there's nothing unruly in it. Once satisfied, execute it:
 
