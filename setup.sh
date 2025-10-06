@@ -4,7 +4,8 @@
 set -eux
 
 apt-get update
-apt-get install -y ansible git less lsb-release python3 python3-psycopg2 sudo gpg
+apt-get install -y ansible git gpg less locales lsb-release python3 \
+                   python3-psycopg2 sudo
 
 # If we don't have the playbook
 if [ ! -f standalone.yml ]; then
@@ -18,6 +19,9 @@ if [ ! -f standalone.yml ]; then
         git pull
     fi
 fi
+
+sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
+locale-gen
 
 # Finally apply the rules to localhost
 env LC_ALL=en_US.UTF-8 \
