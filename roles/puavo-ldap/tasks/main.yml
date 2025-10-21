@@ -114,12 +114,6 @@
     dest=/etc/puavo-web/puavo_external_files.yml
   notify: Restart puavo-web
 
-- name: Add secrets.yml for puavo-web
-  copy:
-    src=etc/puavo-web/secrets.yml
-    dest=/etc/puavo-web/secrets.yml
-  notify: Restart puavo-web
-
 - name: Add redis.yml for puavo-web
   copy:
     src=etc/puavo-web/redis.yml
