@@ -13,6 +13,18 @@
     state: latest
     force: yes
 
+- name: Fix my stupidity
+  replace:
+    path: '/var/app/puavo-web/db/seeds.rb'
+    regexp: 'ltspserver'
+    replace: 'bootserver'
+
+- name: Again
+  replace:
+    path: '/lib/systemd/system/puavo-web.service'
+    regexp: '^ReadWritePaths=/var/app/puavo-web/log$'
+    replace: 'ReadWritePaths=/var/app/puavo-web/log /var/app/puavo-web/tmp'
+
 - name: Install redis for puavo-web & puavo-rest
   apt: pkg=redis-server state=present
 
