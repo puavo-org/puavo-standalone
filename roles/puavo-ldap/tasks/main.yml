@@ -204,6 +204,7 @@
       - allowed_scopes TEXT[] NOT NULL
       - allowed_endpoints TEXT[]
       - allowed_organisations TEXT[]
+      - required_service_dn TEXT
       - created TIMESTAMP NOT NULL
       - modified TIMESTAMP NOT NULL
       - password_changed TIMESTAMP NOT NULL
