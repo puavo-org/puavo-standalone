@@ -156,6 +156,7 @@
   with_items:
     - "oauth2_token_signing_private_key_example.pem"
     - "oauth2_token_signing_public_key_example.pem"
+    - "oauth2_public_jwks_example.json"
 
 - name: Create the OAuth2 clients database
   become: true
