@@ -93,6 +93,10 @@ if $use_unsafe_passwords; then
     mkdir -p /etc/puavo/ds/mfa-mgmt
     echo "uid=mfa-mgmt,o=puavo" > /etc/puavo/ds/mfa-mgmt/dn
     echo "$unsafe_password" > /etc/puavo/ds/mfa-mgmt/password
+
+    mkdir -p /etc/puavo/ds/accounts
+    echo "uid=accounts,o=puavo" > /etc/puavo/ds/accounts/dn
+    echo "$unsafe_password" > /etc/puavo/ds/accounts/password
 fi
 
 for certchain_dir in ${puavo_certificates_dir}/*; do
