@@ -210,6 +210,28 @@
       - modified TIMESTAMP NOT NULL
       - password_changed TIMESTAMP NOT NULL
 
+- name: Create the OAuth2 client authentication records table
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_table:
+    db: "oauth2"
+    name: "client_authentication"
+    columns:
+      - id UUID PRIMARY KEY
+      - client_id TEXT NOT NULL
+      - enabled BOOLEAN NOT NULL DEFAULT FALSE
+      - auth_type TEXT NOT NULL
+      - password_hash TEXT
+      - public_key TEXT
+      - pk_kid TEXT
+      - pk_alg TEXT
+      - jwks JSON
+      - not_before TIMESTAMP
+      - expires TIMESTAMP
+      - description TEXT
+      - created TIMESTAMP NOT NULL
+      - modified TIMESTAMP NOT NULL
+
 - name: Create the OAuth2 issued access tokens history table
   become: true
   become_user: postgres
@@ -264,7 +286,7 @@
     roles: "standalone_user"
     type: table
     privs: SELECT,INSERT,UPDATE,DELETE
-    objs: login_clients,token_clients,issued_tokens_history,token_usage_history
+    objs: login_clients,token_clients,client_authentication,issued_tokens_history,token_usage_history
 
 - name: Tell systemd to start the puavo services at boot
   command: systemctl enable "{{ item }}.service"
