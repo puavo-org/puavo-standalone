@@ -1,13 +1,15 @@
-
 - name: Add key for archive.opinsys.fi
-  apt_key:
-    data="{{ lookup('file', 'opinsys-archive.key') }}"
-    state=present
+  ansible.builtin.copy:
+    src: opinsys-archive.key
+    dest: /etc/apt/keyrings/opinsys-archive.asc
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Add http://archive.opinsys.fi/puavo
-  apt_repository:
+  ansible.builtin.apt_repository:
     filename='/etc/apt/sources.list.d/puavo-os-remote.list'
-    repo='deb http://{{ archive_server }}/puavo {{ ansible_lsb.codename }} main contrib non-free'
+    repo='deb [signed-by=/etc/apt/keyrings/opinsys-archive.asc] http://{{ archive_server }}/puavo {{ ansible_lsb.codename }} main contrib non-free'
     state=present
     update_cache=yes
 
