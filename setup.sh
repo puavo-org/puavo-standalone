@@ -10,7 +10,7 @@ apt-get install -y ansible git less lsb-release python3 python3-psycopg2 sudo gp
 if [ ! -f standalone.yml ]; then
     # fetch it to a temp location using git
     if [ ! -d /tmp/puavo-standalone ]; then
-        git clone https://github.com/puavo-org/puavo-standalone /tmp/puavo-standalone
+        git clone -b trixie https://github.com/puavo-org/puavo-standalone /tmp/puavo-standalone
         cd /tmp/puavo-standalone
     else
         # if already fetched we update it
