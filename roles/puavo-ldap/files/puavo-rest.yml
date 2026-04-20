@@ -1,4 +1,5 @@
 bootserver: false
+ca_cert_path: /etc/ssl/certs/slapd-ca.crt
 cloud: true
 redis:
   db: 1
