@@ -163,7 +163,7 @@
   become: true
   become_user: postgres
   postgresql_user:
-    db: "oauth2"
+    login_db: "oauth2"
     name: "standalone_user"
     password: "standalone_password"
     state: present
@@ -172,7 +172,7 @@
   become: true
   become_user: postgres
   community.postgresql.postgresql_table:
-    db: "oauth2"
+    login_db: "oauth2"
     name: "login_clients"
     columns:
       - client_id TEXT UNIQUE NOT NULL PRIMARY KEY
@@ -188,7 +188,7 @@
   become: true
   become_user: postgres
   community.postgresql.postgresql_table:
-    db: "oauth2"
+    login_db: "oauth2"
     name: "token_clients"
     columns:
       - client_id TEXT UNIQUE NOT NULL PRIMARY KEY
@@ -208,7 +208,7 @@
   become: true
   become_user: postgres
   community.postgresql.postgresql_table:
-    db: "oauth2"
+    login_db: "oauth2"
     name: "client_authentication"
     columns:
       - id UUID PRIMARY KEY
@@ -230,7 +230,7 @@
   become: true
   become_user: postgres
   community.postgresql.postgresql_table:
-    db: "oauth2"
+    login_db: "oauth2"
     name: "issued_tokens_history"
     columns:
       - id UUID PRIMARY KEY
@@ -252,7 +252,7 @@
   become: true
   become_user: postgres
   community.postgresql.postgresql_table:
-    db: "oauth2"
+    login_db: "oauth2"
     name: "token_usage_history"
     columns:
       - id UUID PRIMARY KEY
@@ -276,7 +276,7 @@
   become: true
   become_user: postgres
   postgresql_privs:
-    db: "oauth2"
+    login_db: "oauth2"
     roles: "standalone_user"
     type: table
     privs: SELECT,INSERT,UPDATE,DELETE
