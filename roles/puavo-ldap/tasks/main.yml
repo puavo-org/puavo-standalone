@@ -81,12 +81,6 @@
       done
       exit 1
 
-- name: Refresh organisations for puavo-rest
-  service: name=puavo-rest state=restarted
-
-- name: Wait for puavo-rest to wake up
-  command: 'call-until-ok curl --noproxy localhost --fail -H "host: hogwarts.puavo.net" http://localhost:9292/v3/ldap_connection_test'
-
 - name: Get hostname
   command: hostname -f
   register: hostname_command
@@ -287,6 +281,12 @@
     type: table
     privs: SELECT,INSERT,UPDATE,DELETE
     objs: login_clients,token_clients,client_authentication,issued_tokens_history,token_usage_history
+
+- name: Refresh organisations for puavo-rest
+  service: name=puavo-rest state=restarted
+
+- name: Wait for puavo-rest to wake up
+  command: 'call-until-ok curl --noproxy localhost --fail -H "host: hogwarts.puavo.net" http://localhost:9292/v3/ldap_connection_test'
 
 - name: Tell systemd to start the puavo services at boot
   command: systemctl enable "{{ item }}.service"
