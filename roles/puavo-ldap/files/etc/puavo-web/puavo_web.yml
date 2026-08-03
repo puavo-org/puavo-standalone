@@ -21,16 +21,6 @@ default_organisation: hogwarts
 puavo_rest:
   host: http://127.0.0.1:9292
 device_types:
-  thinclient:
-    label:
-      en: Thinclient
-      fi: Kevytpääte
-    classes: puavoNetbootDevice
-    url: /devices/%s/devices/new.json?device_type=thinclient
-    order: 1
-    puppetclass: netboot
-    school_required: true
-    show_dashboard: true
   fatclient:
     label:
       en: Fatclient
